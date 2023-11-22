@@ -3,6 +3,7 @@ build/*
 dist/*
 public/*
 **/out/*
+***/node_modules/*
 
 **/.next/*
 next.config.js

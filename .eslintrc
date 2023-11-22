@@ -26,9 +26,6 @@
       "version": "detect"
     },
     "import/resolver": {
-      "node": {
-        "moduleDirectory": ["node_modules", "src"]
-      },
       "alias": {
         "map": [
           [
