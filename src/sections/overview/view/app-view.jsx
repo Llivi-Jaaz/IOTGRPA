@@ -98,6 +98,7 @@ export default function AppView() {
         <Grid xs={12} md={6} lg={4}>
           <AppCurrentVisits
             title="Current Visits"
+            subheader="Today"
             chart={{
               series: [
                 { label: 'America', value: 4344 },
