@@ -6,16 +6,16 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
 
-import { products } from 'src/_mock/sunlight';
+import { sunlight } from 'src/_mock/sunlight';
 
-import ProductCard from '../sunlight-card';
-import ProductSort from '../sunlight-sort';
-import ProductFilters from '../sunlight-filters';
-import ProductCartWidget from '../sunlight-widget';
+import SunlightCard from '../sunlight-card';
+import SunlightSort from '../sunlight-sort';
+import SunlightWidget from '../sunlight-widget';
+import SunlightFilters from '../sunlight-filters';
 
 // ----------------------------------------------------------------------
 
-export default function ProductsView() {
+export default function SunlightView() {
   const [openFilter, setOpenFilter] = useState(false);
 
   const handleOpenFilter = () => {
@@ -45,25 +45,25 @@ export default function ProductsView() {
         sx={{ mb: 5 }}
       >
         <Stack direction="row" spacing={1} flexShrink={0} sx={{ my: 1 }}>
-          <ProductFilters
+          <SunlightFilters
             openFilter={openFilter}
             onOpenFilter={handleOpenFilter}
             onCloseFilter={handleCloseFilter}
           />
 
-          <ProductSort />
+          <SunlightSort />
         </Stack>
       </Stack>
 
       <Grid container spacing={3}>
-        {products.map((product) => (
-          <Grid key={product.id} xs={12} sm={6} md={3}>
-            <ProductCard product={product} />
+        {sunlight.map((solar) => (
+          <Grid key={solar.id} xs={12} sm={6} md={3}>
+            <SunlightCard sunlight={solar} />
           </Grid>
         ))}
       </Grid>
 
-      <ProductCartWidget />
+      <SunlightWidget />
     </Container>
   );
 }

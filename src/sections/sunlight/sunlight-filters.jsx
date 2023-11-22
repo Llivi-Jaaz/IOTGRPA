@@ -47,7 +47,7 @@ export const COLOR_OPTIONS = [
 
 // ----------------------------------------------------------------------
 
-export default function ProductFilters({ openFilter, onOpenFilter, onCloseFilter }) {
+export default function SunlightFilters({ openFilter, onOpenFilter, onCloseFilter }) {
   const renderGender = (
     <Stack spacing={1}>
       <Typography variant="subtitle2">Gender</Typography>
@@ -196,7 +196,7 @@ export default function ProductFilters({ openFilter, onOpenFilter, onCloseFilter
   );
 }
 
-ProductFilters.propTypes = {
+SunlightFilters.propTypes = {
   openFilter: PropTypes.bool,
   onOpenFilter: PropTypes.func,
   onCloseFilter: PropTypes.func,
