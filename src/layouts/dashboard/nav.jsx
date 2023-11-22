@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
 import Drawer from '@mui/material/Drawer';
 import { alpha } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
