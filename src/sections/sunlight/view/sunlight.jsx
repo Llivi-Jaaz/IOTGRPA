@@ -1,16 +1,17 @@
 import { useState } from 'react';
+import moment from 'moment';
 
 import Stack from '@mui/material/Stack';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
 
-import { products } from 'src/_mock/products';
+import { products } from 'src/_mock/sunlight';
 
-import ProductCard from '../product-card';
-import ProductSort from '../product-sort';
-import ProductFilters from '../product-filters';
-import ProductCartWidget from '../product-cart-widget';
+import ProductCard from '../sunlight-card';
+import ProductSort from '../sunlight-sort';
+import ProductFilters from '../sunlight-filters';
+import ProductCartWidget from '../sunlight-widget';
 
 // ----------------------------------------------------------------------
 
@@ -25,10 +26,15 @@ export default function ProductsView() {
     setOpenFilter(false);
   };
 
+  const currentDate = moment().format('dddd, MMMM DD, YYYY');  
+
   return (
     <Container>
-      <Typography variant="h4" sx={{ mb: 5 }}>
-        Products
+      <Typography variant="h2" sx={{ mb: 0 }}>
+        Sunlight
+      </Typography>
+      <Typography variant="h7" sx={{ mb: 2 }}>
+        Today is {currentDate}
       </Typography>
 
       <Stack

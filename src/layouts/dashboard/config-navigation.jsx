@@ -19,7 +19,7 @@ const navConfig = [
   },
   {
     title: 'Sunlight',
-    path: '/products',
+    path: '/sunlight',
     icon: icon('ic_cart'),
   },
   {
