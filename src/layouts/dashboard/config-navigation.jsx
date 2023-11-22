@@ -39,8 +39,8 @@ const navConfig = [
   },
   {
     title: 'Device Configuration',
-    path: '/blog',
-    icon: icon('ic_blog'),
+    path: '/user',
+    icon: icon('ic_devconfig'),
   },
 ];
 
