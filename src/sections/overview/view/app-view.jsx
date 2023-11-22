@@ -15,27 +15,35 @@ import AppWidgetSummary from '../app-widget-summary';
 import AppTrafficBySite from '../app-traffic-by-site';
 import AppCurrentSubject from '../app-current-subject';
 import AppConversionRates from '../app-conversion-rates';
+import moment from 'moment';
 
 // ----------------------------------------------------------------------
 
 export default function AppView() {
+
+  let currentDate = moment().format('dddd, MMMM DD, YYYY');
+
   return (
-    <Container maxWidth="xl">
-      <Typography variant="h4" sx={{ mb: 5 }}>
+    <Container maxWidth="xxl">
+      <Typography variant="h4" sx={{ mb: 0.1 }}>
         Dashboard
       </Typography>
 
+      <Typography variant="h7" sx={{ mb: 100 }}>
+        Today is {currentDate}
+      </Typography>
+
       <Grid container spacing={3}>
-        <Grid xs={12} sm={6} md={3}>
+        <Grid xs={12} sm={6} md={4}>
           <AppWidgetSummary
             title="Temperature"
-
+            subheader="Today"
             color="success"
             icon={<img alt="icon" src="/assets/icons/glass/ic_glass_bag.png" />}
           />
         </Grid>
 
-        <Grid xs={12} sm={6} md={3}>
+        <Grid xs={12} sm={9} md={4}>
           <AppWidgetSummary
             title="Humidity"
 
@@ -44,9 +52,10 @@ export default function AppView() {
           />
         </Grid>
 
-        <Grid xs={12} sm={6} md={3}>
+        <Grid xs={12} sm={6} md={4}>
           <AppWidgetSummary
             title="Wind Speed"
+            subheader="Today"
 
             color="warning"
             icon={<img alt="icon" src="/assets/icons/glass/ic_glass_buy.png" />}
