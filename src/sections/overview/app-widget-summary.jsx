@@ -39,6 +39,7 @@ export default function AppWidgetSummary({ title, subheader, total, icon, color 
 AppWidgetSummary.propTypes = {
   color: PropTypes.string,
   icon: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
+  subheader: PropTypes.string.isRequired,
   sx: PropTypes.object,
   title: PropTypes.string,
   total: PropTypes.number,
