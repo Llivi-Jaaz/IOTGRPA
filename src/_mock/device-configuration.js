@@ -1,25 +1,58 @@
-import { sample } from 'lodash';
-import { faker } from '@faker-js/faker';
-
-// ----------------------------------------------------------------------
-
-export const users = [...Array(24)].map((_, index) => ({
-  id: faker.string.uuid(),
-  avatarUrl: `/assets/images/avatars/avatar_${index + 1}.jpg`,
-  name: faker.person.fullName(),
-  company: faker.company.name(),
-  isVerified: faker.datatype.boolean(),
-  status: sample(['active', 'banned']),
-  role: sample([
-    'Leader',
-    'Hr Manager',
-    'UI Designer',
-    'UX Designer',
-    'UI/UX Designer',
-    'Project Manager',
-    'Backend Developer',
-    'Full Stack Designer',
-    'Front End Developer',
-    'Full Stack Developer',
-  ]),
-}));
+export const aws_components = [
+  {
+    id: '1',
+    symbolUrl: '/assets/images/symbols/esp32.png',
+    name: 'ESP32 Dev Board',
+    unit: '-',
+    status: 'active',
+    role: 'Leader',
+  },
+  {
+    id: '2',
+    symbolUrl: '/assets/images/symbols/wind_speed.png',
+    name: 'Wind Speed',
+    unit: 'km/h',
+    status: 'active',
+    role: 'Leader',
+  },
+  {
+    id: '3',
+    symbolUrl: '/assets/images/symbols/wind_direction.png',
+    name: 'Wind Direction',
+    unit: '°',
+    status: 'inactive',
+    role: 'Hr Manager',
+  },
+  {
+    id: '4',
+    symbolUrl: '/assets/images/symbols/solar_irradiance.png',
+    name: 'Solar Irradiance',
+    unit: 'W/m²',
+    status: 'inactive',
+    role: 'Hr Manager',
+  },
+  {
+    id: '5',
+    symbolUrl: '/assets/images/symbols/rain_gauge.png',
+    name: 'Rain Gauge',
+    unit: 'mm',
+    status: 'inactive',
+    role: 'Hr Manager',
+  },
+  {
+    id: '6',
+    symbolUrl: '/assets/images/symbols/dht22.png',
+    name: 'DHT22 Temperature and Humidity Sensor',
+    unit: '°, %',
+    status: 'inactive',
+    role: 'Hr Manager',
+  },
+  {
+    id: '7',
+    symbolUrl: '/assets/images/symbols/mq27.png',
+    name: 'MQ-27 Gas Sensor',
+    unit: 'ppm',
+    status: 'inactive',
+    role: 'Hr Manager',
+  }
+];
