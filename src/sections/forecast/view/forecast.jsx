@@ -31,7 +31,7 @@ export default function ForecastView() {
           {chartType === '24hrs' && (
             <TempData
               title="Temperature"
-              subheader="Short-term"
+              subheader="Short-term Forecast"
               chart={{
                 labels: ['0', '2', '4', '6', '8', '10', '12', '14', '16', '18', '20', '22', '24'],
                 series: [
