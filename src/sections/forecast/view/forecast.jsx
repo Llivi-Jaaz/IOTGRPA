@@ -62,6 +62,7 @@ export default function ForecastView() {
               title="Temperature"
               subheader="Short-term Forecast"
               chart={{
+                type: 'temperature',
                 labels: ['0', '2', '4', '6', '8', '10', '12', '14', '16', '18', '20', '22', '24'],
                 series: [
                   {
@@ -85,6 +86,7 @@ export default function ForecastView() {
               title="Temperature"
               subheader="Long-term Forecast"
               chart={{
+                type: 'temperature',
                 labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
                 series: [
                   {
@@ -111,6 +113,7 @@ export default function ForecastView() {
               title="Humidity"
               subheader="Short-term Forecast"
               chart={{
+                type: 'humidity',
                 labels: ['0', '2', '4', '6', '8', '10', '12', '14', '16', '18', '20', '22', '24'],
                 series: [
                   {
@@ -134,6 +137,7 @@ export default function ForecastView() {
               title="Humidity"
               subheader="Long-term Forecast"
               chart={{
+                type: 'humidity',
                 labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
                 series: [
                   {

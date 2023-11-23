@@ -35,7 +35,13 @@ export default function ForecastData({ title, subheader, chart, ...other }) {
       y: {
         formatter: (value) => {
           if (typeof value !== 'undefined') {
-            return `${value.toFixed(0)} &deg;C`;
+            if (chart.type === 'temperature') {
+              return `${value.toFixed(0)} &deg;C`;
+            }
+            if (chart.type === 'humidity') {
+              return `${value.toFixed(0)}%`;
+            }
+            return value; // Default format
           }
           return value;
         },
