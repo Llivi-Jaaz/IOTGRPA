@@ -39,7 +39,7 @@ const navConfig = [
   },
   {
     title: 'Device Configuration',
-    path: '/user',
+    path: '/device-configuration',
     icon: icon('ic_devconfig'),
   },
 ];
