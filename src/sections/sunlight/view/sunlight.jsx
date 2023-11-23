@@ -1,12 +1,8 @@
 import moment from 'moment';
-import { useState } from 'react';
 
-import Stack from '@mui/material/Stack';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
-
-import { sunlight } from 'src/_mock/sunlight';
 
 import SolarData from '../sunlight-data';
 import SunlightWidget from '../sunlight-widget';
@@ -14,15 +10,6 @@ import SunlightWidget from '../sunlight-widget';
 // ----------------------------------------------------------------------
 
 export default function SunlightView() {
-  const [openFilter, setOpenFilter] = useState(false);
-
-  const handleOpenFilter = () => {
-    setOpenFilter(true);
-  };
-
-  const handleCloseFilter = () => {
-    setOpenFilter(false);
-  };
 
   const currentDate = moment().format('dddd, MMMM DD, YYYY');  
 
