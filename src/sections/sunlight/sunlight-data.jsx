@@ -24,6 +24,14 @@ export default function SolarData({ title, subheader, chart, ...other }) {
     labels,
     xaxis: {
       type: 'time',
+      title: {
+        text: 'Hours', 
+      },
+    },
+    yaxis: {
+      title: {
+        text: 'Solar Radiation Value',
+      },
     },
     tooltip: {
       shared: true,
