@@ -8,7 +8,7 @@ import Chart, { useChart } from 'src/components/chart';
 
 // ----------------------------------------------------------------------
 
-export default function ForecastData({ title, subheader, chart, ...other }) {
+export default function TempData({ title, subheader, chart, ...other }) {
   const { labels, colors, series, options } = chart;
 
   const chartOptions = useChart({
@@ -30,7 +30,7 @@ export default function ForecastData({ title, subheader, chart, ...other }) {
     },
     yaxis: {
       title: {
-        text: 'Solar Radiation Value',
+        text: 'Temperature Value',
       },
     },
     tooltip: {
@@ -39,7 +39,7 @@ export default function ForecastData({ title, subheader, chart, ...other }) {
       y: {
         formatter: (value) => {
           if (typeof value !== 'undefined') {
-            return `${value.toFixed(0)} W/m<sup>2</sup>`;
+            return `${value.toFixed(0)} &deg;C`;
           }
           return value;
         },
@@ -66,7 +66,7 @@ export default function ForecastData({ title, subheader, chart, ...other }) {
   );
 }
 
-ForecastData.propTypes = {
+TempData.propTypes = {
   chart: PropTypes.object,
   subheader: PropTypes.string,
   title: PropTypes.string,

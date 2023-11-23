@@ -82,7 +82,7 @@ export default function SunlightView() {
                 {
                   type: 'area',
                   fill: 'gradient',
-                  data: [140, 158, 189, 153, 200, 164, 194, 175, 184, 200, 156, 128],
+                  data: [140, 158, 189, 153, 200, 164, 194, 175, 184, 200, 156, 149, 128],
                 }
               ],
             }}

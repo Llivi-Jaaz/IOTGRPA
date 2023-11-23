@@ -1,14 +1,10 @@
 import moment from 'moment';
 
-import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
 
-import Iconify from 'src/components/iconify';
-
-import ForecastData from '../forecast-data';
+import TempData from '../forecast-data';
 
 // ----------------------------------------------------------------------
 
@@ -26,9 +22,9 @@ export default function ForecastView() {
       </Typography>
 
       <Grid xs={12} md={8} lg={8} sx={{ mt: 4 }}>
-          <ForecastData
-            title="Solar Radiation"
-            subheader="Today"
+          <TempData
+            title="Temperature"
+            subheader="Short-term Forecast"
             chart={{
               labels: [
                 '0',
@@ -47,15 +43,14 @@ export default function ForecastView() {
               ],
               series: [
                 {
-                  type: 'area',
-                  fill: 'gradient',
-                  data: [140, 158, 189, 153, 200, 164, 194, 175, 184, 200, 156, 128],
+                  type: 'line',
+                  fill: 'solid',
+                  data: [27, 29, 28.5, 30, 31, 30, 31.4, 28.3, 29.8, 26, 27, 27.3, 26.5],
                 }
               ],
             }}
           />
         </Grid>
-
     </Container>
   );
 }
