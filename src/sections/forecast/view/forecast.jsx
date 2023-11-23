@@ -27,26 +27,6 @@ export default function ForecastView() {
       </Typography>
 
       <Grid sx={{ mt: 4 }}>
-      <Grid xs={12} md={8} lg={8}>
-          {chartType === '1week' && (
-            <TempData
-              title="Temperature"
-              subheader="Long-term Forecast"
-              chart={{
-                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-                series: [
-                  {
-                    type: 'line',
-                    fill: 'solid',
-                    data: [28, 29.4, 28.5, 30, 29, 30, 28.4],
-                  },
-                ],
-                xaxisLabel: 'Days',
-              }}
-              onChartTypeChange={handleChartTypeChange}
-            />
-          )}
-        </Grid>
         <Grid xs={12} md={8} lg={8}>
           {chartType === '24hrs' && (
             <TempData
@@ -64,9 +44,31 @@ export default function ForecastView() {
               xaxisLabel: 'Hours',
               }}
               onChartTypeChange={handleChartTypeChange}
+              activeButton={chartType}
             />
           )}
-        </Grid>        
+        </Grid>
+        <Grid xs={12} md={8} lg={8}>
+          {chartType === '1week' && (
+            <TempData
+              title="Temperature"
+              subheader="Long-term Forecast"
+              chart={{
+                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                series: [
+                  {
+                    type: 'line',
+                    fill: 'solid',
+                    data: [28, 29.4, 28.5, 30, 29, 30, 28.4],
+                  },
+                ],
+                xaxisLabel: 'Days',
+              }}
+              onChartTypeChange={handleChartTypeChange}
+              activeButton={chartType}
+            />
+          )}
+        </Grid>
       </Grid>
     </Container>
   );
