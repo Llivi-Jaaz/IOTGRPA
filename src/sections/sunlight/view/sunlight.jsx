@@ -8,10 +8,7 @@ import Typography from '@mui/material/Typography';
 
 import { sunlight } from 'src/_mock/sunlight';
 
-import SunlightCard from '../sunlight-card';
-import SunlightSort from '../sunlight-sort';
-import SunlightWidget from '../sunlight-widget';
-import SunlightFilters from '../sunlight-filters';
+import SolarData from '../sunlight-data';
 
 // ----------------------------------------------------------------------
 
@@ -37,33 +34,30 @@ export default function SunlightView() {
         Today is {currentDate}
       </Typography>
 
-      <Stack
-        direction="row"
-        alignItems="center"
-        flexWrap="wrap-reverse"
-        justifyContent="flex-end"
-        sx={{ mb: 5 }}
-      >
-        <Stack direction="row" spacing={1} flexShrink={0} sx={{ my: 1 }}>
-          <SunlightFilters
-            openFilter={openFilter}
-            onOpenFilter={handleOpenFilter}
-            onCloseFilter={handleCloseFilter}
+      <Grid xs={12} md={8} lg={8} sx={{ mt: 4 }}>
+          <SolarData
+            title="Solar Radiation"
+            subheader="Today"
+            chart={{
+              labels: [
+                '0',
+                '4',
+                '8',
+                '12',
+                '16',
+                '20',
+                '24',
+              ],
+              series: [
+                {
+                  type: 'area',
+                  fill: 'gradient',
+                  data: [140, 203, 189, 198, 200, 156, 128],
+                }
+              ],
+            }}
           />
-
-          <SunlightSort />
-        </Stack>
-      </Stack>
-
-      <Grid container spacing={3}>
-        {sunlight.map((solar) => (
-          <Grid key={solar.id} xs={12} sm={6} md={3}>
-            <SunlightCard sunlight={solar} />
-          </Grid>
-        ))}
-      </Grid>
-
-      <SunlightWidget />
+        </Grid>
     </Container>
   );
 }
