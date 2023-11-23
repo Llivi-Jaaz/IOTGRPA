@@ -20,7 +20,7 @@ const navConfig = [
   {
     title: 'Sunlight',
     path: '/sunlight',
-    icon: icon('ic_cart'),
+    icon: icon('ic_sun'),
   },
   {
     title: 'Forecast',

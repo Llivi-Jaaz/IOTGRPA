@@ -4,7 +4,7 @@ import { SunlightView } from 'src/sections/sunlight/view';
 
 // ----------------------------------------------------------------------
 
-export default function ProductsPage() {
+export default function SunlightPage() {
   return (
     <>
       <Helmet>
