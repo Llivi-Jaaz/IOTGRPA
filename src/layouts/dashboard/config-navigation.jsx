@@ -24,8 +24,8 @@ const navConfig = [
   },
   {
     title: 'Forecast',
-    path: '/blog',
-    icon: icon('ic_blog'),
+    path: '/forecast',
+    icon: icon('ic_forecast'),
   },
   {
     title: 'Location Information',

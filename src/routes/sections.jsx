@@ -4,6 +4,7 @@ import { Outlet, Navigate, useRoutes } from 'react-router-dom';
 import DashboardLayout from 'src/layouts/dashboard';
 
 export const IndexPage = lazy(() => import('src/pages/app'));
+export const ForecastPage = lazy(() => import('src/pages/forecast'));
 export const BlogPage = lazy(() => import('src/pages/blog'));
 export const UserPage = lazy(() => import('src/pages/user'));
 export const DeviceConfigPage = lazy(() => import('src/pages/device-configuration'));
@@ -27,6 +28,7 @@ export default function Router() {
         { element: <IndexPage />, index: true },
         { path: 'user', element: <UserPage /> },
         { path: 'sunlight', element: <SunlightPage /> },
+        { path: 'forecast', element: <ForecastPage /> },
         { path: 'blog', element: <BlogPage /> },
         { path: 'device-configuration', element: <DeviceConfigPage /> },
       ],
