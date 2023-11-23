@@ -21,13 +21,13 @@ export default function SunlightWidget({ title, subheader, total, icon, color = 
       }}
       {...other}
     >
-      {icon && <Box sx={{ width: 64, height: 64 }}>{icon}</Box>}
+      {icon && <Box sx={{ width: 85, height: 85 }}>{icon}</Box>}
 
       <Stack spacing={0.5}>
-        <Typography variant="h6">
+        <Typography variant="h7">
           {title}
         </Typography>
-        <Typography variant="h10">
+        <Typography variant="h2">
           {subheader}
         </Typography>
 
