@@ -33,7 +33,7 @@ export default function ForecastView() {
           onClick={() => handleChartTypeChange('1week')}
           sx={{
             ml: 'auto',
-            width: 575,
+            width: 572,
             display: 'inline',
             backgroundColor: chartType === '1week' ? '#4caf50' : 'inherit',
             color: chartType === '1week' ? '#fff' : 'inherit',
@@ -44,8 +44,8 @@ export default function ForecastView() {
         <Button
           onClick={() => handleChartTypeChange('24hrs')}
           sx={{
-            ml: 'auto',
-            width: 575,
+            ml: 1,
+            width: 572,
             display: 'inline',
             backgroundColor: chartType === '24hrs' ? '#4caf50' : 'inherit',
             color: chartType === '24hrs' ? '#fff' : 'inherit',
