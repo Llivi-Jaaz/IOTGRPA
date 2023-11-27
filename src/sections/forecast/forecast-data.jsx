@@ -41,7 +41,13 @@ export default function ForecastData({ title, subheader, chart, ...other }) {
             if (chart.type === 'humidity') {
               return `${value.toFixed(0)}%`;
             }
-            return value; // Default format
+            if (chart.type === 'solar') {
+              return `${value.toFixed(0)} W/m<sup>2</sup>`;
+            }
+            if (chart.type === 'rain') {
+              return `${value.toFixed(0)} mm`;
+            }
+            return value;
           }
           return value;
         },

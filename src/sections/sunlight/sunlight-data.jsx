@@ -30,7 +30,7 @@ export default function SolarData({ title, subheader, chart, ...other }) {
     },
     yaxis: {
       title: {
-        text: 'Solar Radiation Value',
+        text: 'Solar Irradiance',
       },
     },
     tooltip: {

@@ -122,7 +122,7 @@ export default function ForecastView() {
                     data: [66, 74, 82, 65, 80, 75, 69, 82, 80, 76, 74, 72, 70],
                   },
                 ],
-              colors: ['#145DA0'],
+              colors: ['#3F704D'],
               xaxisLabel: 'Hours',
               yaxisLabel: 'Relative Humidity',
               }}
@@ -146,9 +146,111 @@ export default function ForecastView() {
                     data: [76, 75, 79, 74, 78, 75, 74],
                   },
                 ],
-                colors: ['#145DA0'],
+                colors: ['#3F704D'],
                 xaxisLabel: 'Days',
                 yaxisLabel: 'Relative Humidity',
+              }}
+              onChartTypeChange={handleChartTypeChange}
+              activeButton={chartType}
+            />
+          )}
+        </Grid>
+      </Grid>
+
+      <Grid sx={{ mt: 6 }}>
+        <Grid xs={12} md={8} lg={8}>
+          {chartType === '24hrs' && (
+            <ForecastData
+              title="Rainfall"
+              subheader="Short-term Forecast"
+              chart={{
+                type: 'rain',
+                labels: ['0', '2', '4', '6', '8', '10', '12', '14', '16', '18', '20', '22', '24'],
+                series: [
+                  {
+                    type: 'line',
+                    fill: 'solid',
+                    data: [3.4, 2.3, 2.5, 3.6, 4.5, 3.2, 3.8, 4.7, 4.9, 4.3, 3.9, 3.4, 3.1],
+                  },
+                ],
+              colors: ['#145DA0'],
+              xaxisLabel: 'Hours',
+              yaxisLabel: 'Precipitation',
+              }}
+              onChartTypeChange={handleChartTypeChange}
+              activeButton={chartType}
+            />
+          )}
+        </Grid>
+        <Grid xs={12} md={8} lg={8}>
+          {chartType === '1week' && (
+            <ForecastData
+              title="Rainfall"
+              subheader="Long-term Forecast"
+              chart={{
+                type: 'rain',
+                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                series: [
+                  {
+                    type: 'line',
+                    fill: 'solid',
+                    data: [4, 7, 6 , 8, 10, 14, 16],
+                  },
+                ],
+                colors: ['#145DA0'],
+                xaxisLabel: 'Days',
+                yaxisLabel: 'Precipitation',
+              }}
+              onChartTypeChange={handleChartTypeChange}
+              activeButton={chartType}
+            />
+          )}
+        </Grid>
+      </Grid>
+
+      <Grid sx={{ mt: 6 }}>
+        <Grid xs={12} md={8} lg={8}>
+          {chartType === '24hrs' && (
+            <ForecastData
+              title="Solar Radiation"
+              subheader="Short-term Forecast"
+              chart={{
+                type: 'solar',
+                labels: ['0', '2', '4', '6', '8', '10', '12', '14', '16', '18', '20', '22', '24'],
+                series: [
+                  {
+                    type: 'line',
+                    fill: 'solid',
+                    data: [140, 158, 189, 153, 200, 164, 194, 175, 184, 200, 156, 149, 128],
+                  },
+                ],
+              colors: ['#F9E076'],
+              xaxisLabel: 'Hours',
+              yaxisLabel: 'Solar Irradiance',
+              }}
+              onChartTypeChange={handleChartTypeChange}
+              activeButton={chartType}
+            />
+          )}
+        </Grid>
+        <Grid xs={12} md={8} lg={8}>
+          {chartType === '1week' && (
+            <ForecastData
+              title="Solar Radiation"
+              subheader="Long-term Forecast"
+              chart={{
+                type: 'solar',
+                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                series: [
+                  {
+                    type: 'line',
+                    fill: 'solid',
+                    data: [156, 164, 159 , 172, 178, 169, 161],
+                  },
+                ],
+                colors: ['#F9E076'],
+                xaxisLabel: 'Days',
+                yaxisLabel: 'Solar Irradiance',
               }}
               onChartTypeChange={handleChartTypeChange}
               activeButton={chartType}
