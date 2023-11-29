@@ -258,6 +258,58 @@ export default function ForecastView() {
           )}
         </Grid>
       </Grid>
+
+      <Grid sx={{ mt: 6 }}>
+        <Grid xs={12} md={8} lg={8}>
+          {chartType === '24hrs' && (
+            <ForecastData
+              title="Wind Speed"
+              subheader="Short-term Forecast"
+              chart={{
+                type: 'wspeed',
+                labels: ['0', '2', '4', '6', '8', '10', '12', '14', '16', '18', '20', '22', '24'],
+                series: [
+                  {
+                    type: 'line',
+                    fill: 'solid',
+                    data: [11, 10, 14, 9, 12, 17, 14, 15, 8, 10, 12, 16, 15],
+                  },
+                ],
+              colors: ['#A689E1'],
+              xaxisLabel: 'Hours',
+              yaxisLabel: 'Solar Irradiance',
+              }}
+              onChartTypeChange={handleChartTypeChange}
+              activeButton={chartType}
+            />
+          )}
+        </Grid>
+        <Grid xs={12} md={8} lg={8}>
+          {chartType === '1week' && (
+            <ForecastData
+              title="Wind Speed"
+              subheader="Long-term Forecast"
+              chart={{
+                type: 'wspeed',
+                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                series: [
+                  {
+                    type: 'line',
+                    fill: 'solid',
+                    data: [14, 17, 18 , 12, 14, 11, 15],
+                  },
+                ],
+                colors: ['#A689E1'],
+                xaxisLabel: 'Days',
+                yaxisLabel: 'Solar Irradiance',
+              }}
+              onChartTypeChange={handleChartTypeChange}
+              activeButton={chartType}
+            />
+          )}
+        </Grid>
+      </Grid>
+
     </Container>
   );
 }
