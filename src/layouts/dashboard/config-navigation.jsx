@@ -30,12 +30,12 @@ const navConfig = [
   {
     title: 'Location Information',
     path: '/blog',
-    icon: icon('ic_blog'),
+    icon: icon('ic_location'),
   },
   {
     title: 'Historical Data',
-    path: '/blog',
-    icon: icon('ic_blog'),
+    path: '',
+    icon: icon('ic_data'),
   },
   {
     title: 'Device Configuration',
