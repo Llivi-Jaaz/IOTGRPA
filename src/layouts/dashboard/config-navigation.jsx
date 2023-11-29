@@ -34,7 +34,7 @@ const navConfig = [
   },
   {
     title: 'Historical Data',
-    path: '',
+    path: '/historical-data',
     icon: icon('ic_data'),
   },
   {

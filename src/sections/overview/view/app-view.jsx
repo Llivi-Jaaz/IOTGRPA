@@ -13,12 +13,12 @@ export default function AppView() {
   const currentDate = moment().format('dddd, MMMM DD, YYYY');
 
   return (
-    <Container maxWidth="xxl">
-      <Typography variant="h4" sx={{ mb: 0.1 }}>
+    <Container maxWidth="xl">
+      <Typography variant="h3" sx={{ mb: 0 }}>
         Dashboard
       </Typography>
 
-      <Typography variant="h7" sx={{ mb: 100 }}>
+      <Typography variant="subtitle2" sx={{ mt: 0, mb: 3 }}>
         Today is {currentDate}
       </Typography>
 

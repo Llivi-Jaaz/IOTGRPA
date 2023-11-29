@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react';
-import { Outlet, Navigate, useRoutes } from 'react-router-dom';
+import { Navigate, Outlet, useRoutes } from 'react-router-dom';
 
 import DashboardLayout from 'src/layouts/dashboard';
 
@@ -10,6 +10,7 @@ export const UserPage = lazy(() => import('src/pages/user'));
 export const DeviceConfigPage = lazy(() => import('src/pages/device-configuration'));
 export const LoginPage = lazy(() => import('src/pages/login'));
 export const SunlightPage = lazy(() => import('src/pages/sunlight'));
+export const HistoricalDataPage = lazy(() => import('src/pages/historical-data'));
 export const Page404 = lazy(() => import('src/pages/page-not-found'));
 
 // ----------------------------------------------------------------------
@@ -30,6 +31,7 @@ export default function Router() {
         { path: 'sunlight', element: <SunlightPage /> },
         { path: 'forecast', element: <ForecastPage /> },
         { path: 'blog', element: <BlogPage /> },
+        { path: 'historical-data', element: <HistoricalDataPage /> },
         { path: 'device-configuration', element: <DeviceConfigPage /> },
       ],
     },
