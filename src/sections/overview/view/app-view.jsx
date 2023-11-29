@@ -9,9 +9,7 @@ import AppWebsiteVisits from '../app-website-visits';
 import AppWidgetSummary from '../app-widget-summary';
 
 // ----------------------------------------------------------------------
-
 export default function AppView() {
-
   const currentDate = moment().format('dddd, MMMM DD, YYYY');
 
   return (
@@ -24,38 +22,32 @@ export default function AppView() {
         Today is {currentDate}
       </Typography>
 
-      <Grid container spacing={3}>
+      <Grid container spacing={2}>
         <Grid xs={12} sm={6} md={4}>
           <AppWidgetSummary
-            title="Temperature"
+            title="Temperature (°C)"
             subheader="Today"
-            color="success"
-            icon={<img alt="icon" src="/assets/icons/glass/ic_glass_bag.png" />}
           />
         </Grid>
 
         <Grid xs={12} sm={9} md={4}>
           <AppWidgetSummary
-            title="Humidity"
-
-            color="info"
-            icon={<img alt="icon" src="/assets/icons/glass/ic_glass_users.png" />}
+            title="Rainfall (mm)"
+            subheader="Today"
           />
         </Grid>
 
         <Grid xs={12} sm={6} md={4}>
           <AppWidgetSummary
-            title="Wind Speed"
+            title="Wind Speed & Direction (km/h)"
             subheader="Today"
-
-            color="warning"
-            icon={<img alt="icon" src="/assets/icons/glass/ic_glass_buy.png" />}
           />
         </Grid>
 
+
         <Grid xs={12} md={8} lg={8}>
           <AppWebsiteVisits
-            title="Humidity"
+            title="Humidity (%)"
             subheader="Today"
             chart={{
               labels: [
@@ -97,7 +89,7 @@ export default function AppView() {
 
         <Grid xs={12} md={6} lg={4}>
           <AppCurrentVisits
-            title="Current Visits"
+            title="Carbon Monoxide (ppm)"
             subheader="Today"
             chart={{
               series: [
