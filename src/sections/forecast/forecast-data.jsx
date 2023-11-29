@@ -47,6 +47,9 @@ export default function ForecastData({ title, subheader, chart, ...other }) {
             if (chart.type === 'rain') {
               return `${value.toFixed(0)} mm`;
             }
+            if (chart.type === 'wspeed') {
+              return `${value.toFixed(0)} km/h`;
+            }
             return value;
           }
           return value;
