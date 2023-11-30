@@ -15,7 +15,7 @@ const navConfig = [
   {
     title: 'Rainfall',
     path: '/rainfall',
-    icon: icon('ic_user'),
+    icon: icon('ic_rain'),
   },
   {
     title: 'Sunlight',
