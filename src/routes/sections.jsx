@@ -6,7 +6,7 @@ import DashboardLayout from 'src/layouts/dashboard';
 export const IndexPage = lazy(() => import('src/pages/app'));
 export const ForecastPage = lazy(() => import('src/pages/forecast'));
 export const BlogPage = lazy(() => import('src/pages/blog'));
-export const UserPage = lazy(() => import('src/pages/user'));
+export const RainfallPage = lazy(() => import('src/pages/rainfall'));
 export const DeviceConfigPage = lazy(() => import('src/pages/device-configuration'));
 export const LoginPage = lazy(() => import('src/pages/login'));
 export const SunlightPage = lazy(() => import('src/pages/sunlight'));
@@ -26,7 +26,7 @@ export default function Router() {
       ),
       children: [
         { element: <IndexPage />, index: true },
-        { path: 'user', element: <UserPage /> },
+        { path: 'rainfall', element: <RainfallPage /> },
         { path: 'sunlight', element: <SunlightPage /> },
         { path: 'forecast', element: <ForecastPage /> },
         { path: 'blog', element: <BlogPage /> },
