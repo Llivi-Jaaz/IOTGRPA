@@ -1,17 +1,17 @@
 import { Helmet } from 'react-helmet-async';
 
-import { UserView } from 'src/sections/user/view';
+import { RainfallView } from 'src/sections/rainfall/view';
 
 // ----------------------------------------------------------------------
 
-export default function UserPage() {
+export default function RainfallPage() {
   return (
     <>
       <Helmet>
-        <title> User | AWS </title>
+        <title> Rainfall </title>
       </Helmet>
 
-      <UserView />
+      <RainfallView />
     </>
   );
 }
