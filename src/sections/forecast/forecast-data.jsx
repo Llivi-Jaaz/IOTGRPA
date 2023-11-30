@@ -50,6 +50,9 @@ export default function ForecastData({ title, subheader, chart, ...other }) {
             if (chart.type === 'wspeed') {
               return `${value.toFixed(0)} km/h`;
             }
+            if (chart.type === 'carbon') {
+              return `${value.toFixed(0)} ppm`;
+            }
             return value;
           }
           return value;
