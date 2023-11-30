@@ -15,10 +15,10 @@ export default function RainfallView() {
 
   return (
     <Container>
-      <Typography variant="h4" sx={{ mb: 0 }}>
+      <Typography variant="h3" sx={{ mb: 0 }}>
         Rainfall
       </Typography>
-      <Typography variant="h7" sx={{ mb: 2 }}>
+      <Typography variant="subtitle2" sx={{ mb: 2 }}>
         Today is {currentDate}
       </Typography>
 
