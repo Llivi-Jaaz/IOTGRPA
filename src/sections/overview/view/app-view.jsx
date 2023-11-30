@@ -8,6 +8,7 @@ import AppCurrentVisits from '../app-current-visits';
 import AppWebsiteVisits from '../app-website-visits';
 import AppWidgetSummary from '../app-widget-summary';
 
+
 // ----------------------------------------------------------------------
 export default function AppView() {
   const currentDate = moment().format('dddd, MMMM DD, YYYY');
@@ -28,6 +29,7 @@ export default function AppView() {
             title="Temperature (°C)"
             subheader="Today"
           />
+
         </Grid>
 
         <Grid xs={12} sm={9} md={4}>
