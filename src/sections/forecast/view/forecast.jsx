@@ -309,6 +309,57 @@ export default function ForecastView() {
           )}
         </Grid>
       </Grid>
+
+      <Grid sx={{ mt: 6 }}>
+        <Grid xs={12} md={8} lg={8}>
+          {chartType === '24hrs' && (
+            <ForecastData
+              title="Carbon Monoxide"
+              subheader="Short-term Forecast"
+              chart={{
+                type: 'carbon',
+                labels: ['0', '2', '4', '6', '8', '10', '12', '14', '16', '18', '20', '22', '24'],
+                series: [
+                  {
+                    type: 'line',
+                    fill: 'solid',
+                    data: [16, 25, 28, 19, 25, 28, 16, 25, 28, 17, 20, 24, 23],
+                  },
+                ],
+              colors: ['#ADD8E6'],
+              xaxisLabel: 'Hours',
+              yaxisLabel: 'Carbon Monoxide',
+              }}
+              onChartTypeChange={handleChartTypeChange}
+              activeButton={chartType}
+            />
+          )}
+        </Grid>
+        <Grid xs={12} md={8} lg={8}>
+          {chartType === '1week' && (
+            <ForecastData
+              title="Carbon Monoxide"
+              subheader="Long-term Forecast"
+              chart={{
+                type: 'carbon',
+                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                series: [
+                  {
+                    type: 'line',
+                    fill: 'solid',
+                    data: [18, 24, 21 , 27, 25, 20, 19],
+                  },
+                ],
+                colors: ['#ADD8E6'],
+                xaxisLabel: 'Days',
+                yaxisLabel: 'Carbon Monoxide',
+              }}
+              onChartTypeChange={handleChartTypeChange}
+              activeButton={chartType}
+            />
+          )}
+        </Grid>
+      </Grid>
        
     </Container>
   );
