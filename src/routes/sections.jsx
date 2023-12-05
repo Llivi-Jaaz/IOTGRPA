@@ -9,6 +9,7 @@ export const LocInfoPage = lazy(() => import('src/pages/location-information'));
 export const RainfallPage = lazy(() => import('src/pages/rainfall'));
 export const DeviceConfigPage = lazy(() => import('src/pages/device-configuration'));
 export const LoginPage = lazy(() => import('src/pages/login'));
+export const HistoricalDataPage = lazy(() => import('src/pages/historical-data'));
 export const SunlightPage = lazy(() => import('src/pages/sunlight'));
 export const Page404 = lazy(() => import('src/pages/page-not-found'));
 
@@ -31,6 +32,7 @@ export default function Router() {
         { path: 'forecast', element: <ForecastPage /> },
         { path: 'location-information', element: <LocInfoPage /> },
         { path: 'device-configuration', element: <DeviceConfigPage /> },
+        { path: 'historical-data', element: <HistoricalDataPage /> },
       ],
     },
     {
