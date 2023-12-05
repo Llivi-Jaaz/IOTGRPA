@@ -1,17 +1,17 @@
 import { Helmet } from 'react-helmet-async';
 
-import { BlogView } from 'src/sections/blog/view';
+import { LocInfoView } from 'src/sections/location-information/view';
 
 // ----------------------------------------------------------------------
 
-export default function BlogPage() {
+export default function LocInfoPage() {
   return (
     <>
       <Helmet>
-        <title> Blog | AWS </title>
+        <title> Location Information | AWS </title>
       </Helmet>
 
-      <BlogView />
+      <LocInfoView />
     </>
   );
 }

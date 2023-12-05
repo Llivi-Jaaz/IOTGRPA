@@ -5,7 +5,7 @@ import DashboardLayout from 'src/layouts/dashboard';
 
 export const IndexPage = lazy(() => import('src/pages/app'));
 export const ForecastPage = lazy(() => import('src/pages/forecast'));
-export const BlogPage = lazy(() => import('src/pages/blog'));
+export const LocInfoPage = lazy(() => import('src/pages/location-information'));
 export const RainfallPage = lazy(() => import('src/pages/rainfall'));
 export const DeviceConfigPage = lazy(() => import('src/pages/device-configuration'));
 export const LoginPage = lazy(() => import('src/pages/login'));
@@ -29,7 +29,7 @@ export default function Router() {
         { path: 'rainfall', element: <RainfallPage /> },
         { path: 'sunlight', element: <SunlightPage /> },
         { path: 'forecast', element: <ForecastPage /> },
-        { path: 'blog', element: <BlogPage /> },
+        { path: 'location-information', element: <LocInfoPage /> },
         { path: 'device-configuration', element: <DeviceConfigPage /> },
       ],
     },

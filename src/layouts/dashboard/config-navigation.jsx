@@ -29,7 +29,7 @@ const navConfig = [
   },
   {
     title: 'Location Information',
-    path: '/blog',
+    path: '/location-information',
     icon: icon('ic_location'),
   },
   {

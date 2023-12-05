@@ -1,0 +1,1 @@
+export { default as LocInfoView } from './location-information-view';

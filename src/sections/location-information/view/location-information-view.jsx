@@ -1,4 +1,5 @@
-import Stack from '@mui/material/Stack';
+import moment from 'moment';
+
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
@@ -9,12 +10,17 @@ import PostCard from '../post-card';
 
 // ----------------------------------------------------------------------
 
-export default function BlogView() {
+export default function LocInfoView() {
+  const currentDate = moment().format('dddd, MMMM DD, YYYY');
+
   return (
     <Container>
-      <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
-        <Typography variant="h4">Location Information</Typography>
-      </Stack>
+      <Typography variant="h3"  sx={{ mb: 0 }}>
+        Location Information
+      </Typography>
+      <Typography variant="subtitle2" sx={{ mb: 2 }}>
+        Today is {currentDate}
+      </Typography>
 
       <Grid container spacing={3}>
         {posts.map((post, index) => (
