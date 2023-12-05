@@ -91,7 +91,6 @@ export default function DeviceConfigPage() {
                   { id: 'name', label: 'Name' },
                   { id: 'unit', label: 'Unit' },
                   { id: 'status', label: 'Status' },
-                  { id: '' },
                 ]}
               />
               <TableBody>

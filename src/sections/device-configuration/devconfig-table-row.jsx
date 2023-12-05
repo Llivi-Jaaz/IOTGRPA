@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Stack from '@mui/material/Stack';
 import Avatar from '@mui/material/Avatar';
 import TableRow from '@mui/material/TableRow';
-import Checkbox from '@mui/material/Checkbox';
 import TableCell from '@mui/material/TableCell';
 import Typography from '@mui/material/Typography';
 
@@ -17,16 +16,11 @@ export default function DevConfigTableRow({
   symbolUrl,
   unit,
   status,
-  handleClick,
 }) {
 
   return (
     <TableRow hover tabIndex={-1} role="checkbox" selected={selected}>
-      <TableCell padding="checkbox">
-        <Checkbox disableRipple checked={selected} onChange={handleClick} />
-      </TableCell>
-
-      <TableCell component="th" scope="row" padding="none">
+      <TableCell sx={{ paddingLeft: 4, width: '40%', textAlign: 'center' }}>
         <Stack direction="row" alignItems="center" spacing={2}>
           <Avatar alt={name} src={symbolUrl} />
           <Typography variant="subtitle2" noWrap>
@@ -35,9 +29,11 @@ export default function DevConfigTableRow({
         </Stack>
       </TableCell>
 
-      <TableCell>{unit}</TableCell>
+      <TableCell sx={{ width: '30%', textAlign: 'center' }}>
+        {unit}
+      </TableCell>
 
-      <TableCell align="right">
+      <TableCell sx={{ width: '30%', textAlign: 'center' }}>
         <Label color={(status === 'inactive' && 'error') || 'success'}>{status}</Label>
       </TableCell>
     </TableRow>
@@ -47,7 +43,6 @@ export default function DevConfigTableRow({
 DevConfigTableRow.propTypes = {
   symbolUrl: PropTypes.any,
   unit: PropTypes.any,
-  handleClick: PropTypes.func,
   name: PropTypes.any,
   selected: PropTypes.any,
   status: PropTypes.string,
