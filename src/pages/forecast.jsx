@@ -8,7 +8,7 @@ export default function ForecastPage() {
   return (
     <>
       <Helmet>
-        <title> Forecast </title>
+        <title> Forecast | AWS </title>
       </Helmet>
 
       <ForecastView />
