@@ -25,9 +25,11 @@ export default function AppWidgetSummary({ title, subheader, total, icon, color 
         <Typography variant="h6">
           {title}
         </Typography>
+
         <Typography variant="subtitle1">
           {subheader}
         </Typography>
+
       </Stack>
 
       {/* Additional content or components within the Card */}
