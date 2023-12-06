@@ -36,7 +36,7 @@ export default function AppView() {
           <AppWidgetSummary
             title="Rainfall (mm)"
             subheader="Today"
-            data ="IDK"
+            data ="8mm"
           />
         </Grid>
 
