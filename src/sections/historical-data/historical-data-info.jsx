@@ -77,6 +77,4 @@ HistDataInfo.propTypes = {
   chart: PropTypes.object,
   subheader: PropTypes.string,
   title: PropTypes.string,
-  onChartTypeChange: PropTypes.func,
-  activeButton: PropTypes.string,
 };
