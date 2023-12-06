@@ -76,7 +76,12 @@ export default function Searchbar() {
               }
               sx={{ mr: 1, fontWeight: 'fontWeightBold' }}
             />
-            <Button variant="contained" onClick={handleClose}>
+            <Button variant="contained" onClick={handleClose} 
+            sx={{
+              bgcolor: '#4caf50',
+          '&:hover': {
+            bgcolor: '#4caf50',
+            }}} >
               Search
             </Button>
           </StyledSearchbar>
