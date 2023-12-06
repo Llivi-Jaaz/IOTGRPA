@@ -8,7 +8,7 @@ export default function SunlightPage() {
   return (
     <>
       <Helmet>
-        <title> Sunlight </title>
+        <title> Sunlight | AWS </title>
       </Helmet>
 
       <SunlightView />

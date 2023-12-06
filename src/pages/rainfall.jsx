@@ -8,7 +8,7 @@ export default function RainfallPage() {
   return (
     <>
       <Helmet>
-        <title> Rainfall </title>
+        <title> Rainfall | AWS </title>
       </Helmet>
 
       <RainfallView />
