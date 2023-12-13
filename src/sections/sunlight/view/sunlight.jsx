@@ -46,15 +46,13 @@ export default function SunlightView() {
         } catch (error) {
           console.error('Error fetching sunrise-sunset data:', error);
         }
-
-        // Fetch solar irradiance data from Firebase
+        
         const database = getDatabase(app);
         const solarIrradianceRef = ref(database, '/solarirradiance');
 
         onValue(solarIrradianceRef, (snapshot) => {
           const data = snapshot.val();
           if (data) {
-            // Convert the Firebase data to an array of numbers
             const formattedData = Object.values(data);
             setSolarIrradianceData(formattedData);
           }
