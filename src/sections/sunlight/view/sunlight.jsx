@@ -79,10 +79,10 @@ export default function SunlightView() {
 
       <Grid xs={12} md={8} lg={8} sx={{ mt: 4 }}>
           <SolarData
-            title="Solar Radiation"
+            title="Solar Irradiance"
             subheader="Today"
             chart={{
-              labels: Array.from({ length: 13 }, (_, i) => i * 2).map(String),
+            labels: ['0', '2', '4', '6', '8', '10', '12', '14', '16', '18', '20', '22', '24'],
               series: [
                 {
                   type: 'area',

@@ -11,6 +11,7 @@ export const DeviceConfigPage = lazy(() => import('src/pages/device-configuratio
 export const LoginPage = lazy(() => import('src/pages/login'));
 export const HistoricalDataPage = lazy(() => import('src/pages/historical-data'));
 export const SunlightPage = lazy(() => import('src/pages/sunlight'));
+export const SignUpPage = lazy(() => import('src/pages/signup'));
 export const Page404 = lazy(() => import('src/pages/page-not-found'));
 
 // ----------------------------------------------------------------------
@@ -38,6 +39,10 @@ export default function Router() {
     {
       path: 'login',
       element: <LoginPage />,
+    },
+    {
+      path: 'signup',
+      element: <SignUpPage />,
     },
     {
       path: '404',

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { initializeApp } from 'firebase/app';
-import { ref, get, getDatabase } from 'firebase/database';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { ref, set, getDatabase } from 'firebase/database';
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
@@ -24,59 +24,69 @@ import Iconify from 'src/components/iconify';
 
 // ----------------------------------------------------------------------
 
-export default function LoginView() {
+export default function SignUpView() {
   const theme = useTheme();
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLoginClick = async () => {
+  const handleLoginClick = () => {
+    router.push('/login');
+  };
+
+  const handleCreateAccountClick = async () => {
     try {
-      // Firebase configuration
       const firebaseConfig = {
         apiKey: 'AIzaSyAyQ63_JkLt9_yPBMwtFG9rTATelf5k7bE',
         databaseURL: 'https://iot-aws-firebase-default-rtdb.asia-southeast1.firebasedatabase.app/',
       };
 
       const app = initializeApp(firebaseConfig);
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      const auth = getAuth(app);
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const userId = userCredential.user.uid;
+      
       const db = getDatabase();
-      const userRef = ref(db, `useraccounts/${email}`);
-      const snapshot = await get(userRef);
+      const userRef = ref(db, `useraccounts/${userId}`);
+      await set(userRef, {
+        firstName,
+        lastName,
+        email,
+        password,
+      });
 
-      if (snapshot.exists()) {
-        const user = snapshot.val();
-        if (user.password === password) {
-          const auth = getAuth(app);
-          await signInWithEmailAndPassword(auth, email, password);
-
-          // Redirect to '/'
-          router.push('/');
-        } else {
-          alert('Incorrect password');
-        }
-      } else {
-        alert('User not found');
-      }
+      router.push('/');
     } catch (error) {
-      console.error('Error during login:', error.message);
+      console.error('Error during signup:', error.message);
     }
-  };
-
-  const handleSignUpClick = () => {
-    router.push('/signup');
   };
 
   const renderForm = (
     <>
       <Stack spacing={3}>
         <TextField
+          name="firstname"
+          label="First Name"
+          value={firstName}
+          onChange={(e) => setFirstName(e.target.value)}
+        />
+        <TextField
+          name="lastname"
+          label="Last Name"
+          value={lastName}
+          onChange={(e) => setLastName(e.target.value)}
+        />
+        <TextField
           name="email"
           label="Email address"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-
         <TextField
           name="password"
           label="Password"
@@ -103,9 +113,9 @@ export default function LoginView() {
         type="submit"
         variant="contained"
         color="inherit"
-        onClick={handleLoginClick}
+        onClick={handleCreateAccountClick}
       >
-        Login
+        Create Account
       </LoadingButton>
     </>
   );
@@ -136,17 +146,17 @@ export default function LoginView() {
             maxWidth: 420,
           }}
         >
-          <Typography variant="h4">Sign in to AWS Group A</Typography>
+          <Typography variant="h4">Sign Up</Typography>
 
           <Typography variant="body2" sx={{ mt: 2, mb: 5 }}>
-            Don’t have an account?
-            <Link variant="subtitle2" sx={{ ml: 0.5 }} onClick={handleSignUpClick}>
-              Get started
+            Create your account.
+            <Link variant="subtitle2" sx={{ ml: 0.5 }} onClick={handleLoginClick}>
+              Already have one?
             </Link>
           </Typography>
 
           <Divider sx={{ my: 3 }} />
-          
+
           {renderForm}
         </Card>
       </Stack>
