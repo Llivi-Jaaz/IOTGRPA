@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 
 
 // ----------------------------------------------------------------------
-export default function AppWidgetSummary({ title, subheader, total, icon, color = 'primary', sx, ...other }) {
+export default function AppWidgetSummary({ title, subheader, data, total, icon, color = 'primary', sx, ...other }) {
   return (
     <Card
       component={Stack}
@@ -29,8 +29,14 @@ export default function AppWidgetSummary({ title, subheader, total, icon, color 
         <Typography variant="subtitle1">
           {subheader}
         </Typography>
-
       </Stack>
+
+      <Stack spacing={0.1} sx={{ position: 'absolute', textAlign: 'center' }}>
+        <Typography variant="data" sx={{ fontSize: '3rem', fontWeight: 'bold' }}>
+            {data}
+          </Typography>
+      </Stack>
+
 
       {/* Additional content or components within the Card */}
     </Card>
@@ -44,4 +50,5 @@ AppWidgetSummary.propTypes = {
   sx: PropTypes.object,
   title: PropTypes.string,
   total: PropTypes.number,
+  data: PropTypes.string
 };

@@ -4,10 +4,7 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
 
-// import AppCurrentVisits from '../app-current-visits';
-// import AppWebsiteVisits from '../app-website-visits';
 import AppWidgetSummary from '../app-widget-summary';
-
 
 // ----------------------------------------------------------------------
 export default function AppView() {
@@ -28,14 +25,15 @@ export default function AppView() {
           <AppWidgetSummary
             title="Temperature (°C)"
             subheader="Today"
+            data = "36.5 °C"
           />
-
         </Grid>
 
         <Grid xs={12} sm={6} md={4}>
           <AppWidgetSummary
             title="Rainfall (mm)"
             subheader="Today"
+            data ="IDK"
           />
         </Grid>
 
@@ -43,6 +41,7 @@ export default function AppView() {
           <AppWidgetSummary
             title="Humidity (%)"
             subheader="Today"
+            data ="52.4 %"
           />
         </Grid>
 
@@ -50,6 +49,7 @@ export default function AppView() {
           <AppWidgetSummary
             title="Wind Speed & Direction (km/h)"
             subheader="Today"
+            data ="8 km/h"
           />
         </Grid>
 
@@ -57,6 +57,7 @@ export default function AppView() {
           <AppWidgetSummary
             title="Solar irradiance (W/m2)"
             subheader="Today"
+            data ="120 W/m2"
           />
         </Grid>
 
@@ -64,6 +65,7 @@ export default function AppView() {
           <AppWidgetSummary
             title="Carbon Monoxide (ppm)"
             subheader="Today"
+            data ="62 ppm"
           />
         </Grid>
 {/*
