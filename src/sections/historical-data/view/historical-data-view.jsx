@@ -1,4 +1,7 @@
 import moment from 'moment';
+import { initializeApp } from 'firebase/app';
+import React, { useState, useEffect } from 'react';
+import { ref, onValue, getDatabase } from 'firebase/database';
 
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
@@ -8,38 +11,64 @@ import HistDataInfo from '../historical-data-info';
 
 // ----------------------------------------------------------------------
 
+const firebaseConfig = {
+  apiKey: 'AIzaSyD6O0IWDRkEPngo6pfoakPRfaXUEuh8tcI',
+  databaseURL: 'https://weathering-station-default-rtdb.asia-southeast1.firebasedatabase.app/',
+};
+
+const app = initializeApp(firebaseConfig);
+const database = getDatabase(app);
+
 export default function HistDataView() {
-  const currentDate = moment().format('dddd, MMMM DD, YYYY');
- 
+  const [temperatureData, setTemperatureData] = useState([]);
+
+  useEffect(() => {
+    // Fetch temperature data from Firebase
+    const temperatureRef = ref(database, '/DHT/temperature');
+
+    onValue(temperatureRef, (snapshot) => {
+      try {
+        const data = snapshot.val();
+        if (data) {
+          // Convert the Firebase data to an array of numbers
+          const formattedData = Object.values(data).slice(0, 13); // Take only the first 13 data points
+          setTemperatureData(formattedData); // Assuming you have a state variable like setTemperatureData to store the fetched data
+        }
+      } catch (error) {
+        console.error('Error fetching temperature data:', error);
+      }
+    });
+  }, []);
+
   return (
     <Container>
       <Typography variant="h3" sx={{ mb: 0 }}>
         Historical Data
       </Typography>
       <Typography variant="subtitle2" sx={{ mb: 2 }}>
-        Today is {currentDate}
+        Today is {moment().format('dddd, MMMM DD, YYYY')}
       </Typography>
 
       <Grid sx={{ mt: 4 }}>
         <Grid xs={12} md={8} lg={8}>
-            <HistDataInfo
-              title="Temperature"
-              subheader="Historical Data"
-              chart={{
-                type: 'temperature',
-                labels: ['0', '2', '4', '6', '8', '10', '12', '14', '16', '18', '20', '22', '24'],
-                series: [
-                  {
-                    type: 'line',
-                    fill: 'solid',
-                    data: [27, 29, 28.5, 30, 31, 30, 31.4, 28.3, 29.8, 26, 27, 27.3, 26.5],
-                  },
-                ],
+          <HistDataInfo
+            title="Temperature"
+            subheader="Historical Data"
+            chart={{
+              type: 'temperature',
+              labels: ['0', '2', '4', '6', '8', '10', '12', '14', '16', '18', '20', '22', '24'],
+              series: [
+                {
+                  type: 'line',
+                  fill: 'solid',
+                  data: temperatureData,
+                },
+              ],
               colors: ['#189AB4'],
               xaxisLabel: 'Hours',
               yaxisLabel: 'Temperature',
-              }}
-            />
+            }}
+          />
         </Grid>
       </Grid>
 
