@@ -146,8 +146,8 @@ export default function HistDataView() {
               labels: ['0', '2', '4', '6', '8', '10', '12', '14', '16', '18', '20', '22', '24'],
               series: [
                 {
-                  type: 'line',
-                  fill: 'solid',
+                  type: 'area',
+                  fill: 'gradient',
                   data: temperatureData,
                 },
               ],
@@ -169,8 +169,8 @@ export default function HistDataView() {
                 labels: ['0', '2', '4', '6', '8', '10', '12', '14', '16', '18', '20', '22', '24'],
                 series: [
                   {
-                    type: 'line',
-                    fill: 'solid',
+                    type: 'area',
+                    fill: 'gradient',
                     data: humidityData,
                   },
                 ],
@@ -192,8 +192,8 @@ export default function HistDataView() {
                 labels: ['0', '2', '4', '6', '8', '10', '12', '14', '16', '18', '20', '22', '24'],
                 series: [
                   {
-                    type: 'line',
-                    fill: 'solid',
+                    type: 'area',
+                    fill: 'gradient',
                     data: rainfallData,
                   },
                 ],
@@ -215,8 +215,8 @@ export default function HistDataView() {
                 labels: ['0', '2', '4', '6', '8', '10', '12', '14', '16', '18', '20', '22', '24'],
                 series: [
                   {
-                    type: 'line',
-                    fill: 'solid',
+                    type: 'area',
+                    fill: 'gradient',
                     data: windspeedData,
                   },
                 ],
@@ -238,8 +238,8 @@ export default function HistDataView() {
                 labels: ['0', '2', '4', '6', '8', '10', '12', '14', '16', '18', '20', '22', '24'],
                 series: [
                   {
-                    type: 'line',
-                    fill: 'solid',
+                    type: 'area',
+                    fill: 'gradient',
                     data: carbonmonoData,
                   },
                 ],
@@ -261,8 +261,8 @@ export default function HistDataView() {
                 labels: ['0', '2', '4', '6', '8', '10', '12', '14', '16', '18', '20', '22', '24'],
                 series: [
                   {
-                    type: 'line',
-                    fill: 'solid',
+                    type: 'area',
+                    fill: 'gradient',
                     data: [140, 158, 189, 153, 200, 164, 194, 175, 184, 200, 156, 149, 128],
                   },
                 ],
