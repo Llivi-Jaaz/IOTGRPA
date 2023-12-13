@@ -1,7 +1,7 @@
 import moment from 'moment';
 import { initializeApp } from 'firebase/app';
 import React, { useState, useEffect } from 'react';
-import { ref, onValue, getDatabase } from 'firebase/database';
+import { ref, off, onValue, getDatabase } from 'firebase/database';
 
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
@@ -21,24 +21,111 @@ const database = getDatabase(app);
 
 export default function HistDataView() {
   const [temperatureData, setTemperatureData] = useState([]);
+  const [humidityData, setHumidityData] = useState([]);
+  const [rainfallData, setRainData] = useState([]);
+  const [windspeedData, setWindSpeedData] = useState([]);
+  const [carbonmonoData, setCarbonMonoData] = useState([]);
 
   useEffect(() => {
-    // Fetch temperature data from Firebase
     const temperatureRef = ref(database, '/DHT/temperature');
-
-    onValue(temperatureRef, (snapshot) => {
-      try {
-        const data = snapshot.val();
-        if (data) {
-          // Convert the Firebase data to an array of numbers
-          const formattedData = Object.values(data).slice(0, 13); // Take only the first 13 data points
-          setTemperatureData(formattedData); // Assuming you have a state variable like setTemperatureData to store the fetched data
+    const humidityRef = ref(database, '/DHT/humidity');
+    const rainfallRef = ref(database, '/DHT/halleffect');
+    const windspeedRef = ref(database, '/DHT/windspeed');
+    const cardbonmonoRef = ref(database, '/DHT/mq7');
+  
+    const fetchTemperatureData = () => {
+      onValue(temperatureRef, (snapshot) => {
+        try {
+          const data = snapshot.val();
+          if (data) {
+            const formattedData = Object.values(data).slice(0, 13);
+            setTemperatureData(formattedData);
+          }
+        } catch (error) {
+          console.error('Error fetching temperature data:', error);
         }
-      } catch (error) {
-        console.error('Error fetching temperature data:', error);
-      }
-    });
-  }, []);
+      });
+    };
+  
+    const fetchHumidityData = () => {
+      onValue(humidityRef, (snapshot) => {
+        try {
+          const data = snapshot.val();
+          if (data) {
+            const formattedData = Object.values(data).slice(0, 13);
+            setHumidityData(formattedData);
+          }
+        } catch (error) {
+          console.error('Error fetching humidity data:', error);
+        }
+      });
+    };
+  
+    const fetchRainData = () => {
+      onValue(rainfallRef, (snapshot) => {
+        try {
+          const data = snapshot.val();
+          if (data) {
+            const formattedData = Object.values(data).slice(0, 13);
+            setRainData(formattedData);
+          }
+        } catch (error) {
+          console.error('Error fetching rainfall data:', error);
+        }
+      });
+    };
+
+    const fetchWindSpeedData = () => {
+      onValue(windspeedRef, (snapshot) => {
+        try {
+          const data = snapshot.val();
+          if (data) {
+            const formattedData = Object.values(data).slice(0, 13);
+            setWindSpeedData(formattedData);
+          }
+        } catch (error) {
+          console.error('Error fetching rainfall data:', error);
+        }
+      });
+    };
+  
+    const fetchCarbonMonoData = () => {
+      onValue(cardbonmonoRef, (snapshot) => {
+        try {
+          const data = snapshot.val();
+          if (data) {
+            const formattedData = Object.values(data).slice(0, 13);
+            setCarbonMonoData(formattedData);
+          }
+        } catch (error) {
+          console.error('Error fetching rainfall data:', error);
+        }
+      });
+    };
+
+    // Fetch data initially
+    fetchTemperatureData();
+    fetchHumidityData();
+    fetchRainData();
+    fetchWindSpeedData();
+    fetchCarbonMonoData();
+  
+    // Set up listeners for real-time updates
+    const temperatureListener = onValue(temperatureRef, () => fetchTemperatureData());
+    const humidityListener = onValue(humidityRef, () => fetchHumidityData());
+    const rainListener = onValue(rainfallRef, () => fetchRainData());
+    const windspeedListener = onValue(windspeedRef, () => fetchWindSpeedData());
+    const carbonmonoListener = onValue(cardbonmonoRef, () => fetchCarbonMonoData());
+  
+    // Cleanup listeners on component unmount
+    return () => {
+      off(temperatureListener);
+      off(humidityListener);
+      off(rainListener);
+      off(windspeedListener);
+      off(carbonmonoListener);
+    };
+  }, []);  
 
   return (
     <Container>
@@ -59,8 +146,8 @@ export default function HistDataView() {
               labels: ['0', '2', '4', '6', '8', '10', '12', '14', '16', '18', '20', '22', '24'],
               series: [
                 {
-                  type: 'line',
-                  fill: 'solid',
+                  type: 'area',
+                  fill: 'gradient',
                   data: temperatureData,
                 },
               ],
@@ -82,9 +169,9 @@ export default function HistDataView() {
                 labels: ['0', '2', '4', '6', '8', '10', '12', '14', '16', '18', '20', '22', '24'],
                 series: [
                   {
-                    type: 'line',
-                    fill: 'solid',
-                    data: [66, 74, 82, 65, 80, 75, 69, 82, 80, 76, 74, 72, 70],
+                    type: 'area',
+                    fill: 'gradient',
+                    data: humidityData,
                   },
                 ],
               colors: ['#3F704D'],
@@ -105,37 +192,14 @@ export default function HistDataView() {
                 labels: ['0', '2', '4', '6', '8', '10', '12', '14', '16', '18', '20', '22', '24'],
                 series: [
                   {
-                    type: 'line',
-                    fill: 'solid',
-                    data: [3.4, 2.3, 2.5, 3.6, 4.5, 3.2, 3.8, 4.7, 4.9, 4.3, 3.9, 3.4, 3.1],
+                    type: 'area',
+                    fill: 'gradient',
+                    data: rainfallData,
                   },
                 ],
               colors: ['#145DA0'],
               xaxisLabel: 'Hours',
               yaxisLabel: 'Precipitation',
-              }}
-            />
-        </Grid>
-      </Grid>
-
-      <Grid sx={{ mt: 6 }}>
-        <Grid xs={12} md={8} lg={8}>
-            <HistDataInfo
-              title="Solar Radiation"
-              subheader="Historical Data"
-              chart={{
-                type: 'solar',
-                labels: ['0', '2', '4', '6', '8', '10', '12', '14', '16', '18', '20', '22', '24'],
-                series: [
-                  {
-                    type: 'line',
-                    fill: 'solid',
-                    data: [140, 158, 189, 153, 200, 164, 194, 175, 184, 200, 156, 149, 128],
-                  },
-                ],
-              colors: ['#F9E076'],
-              xaxisLabel: 'Hours',
-              yaxisLabel: 'Solar Irradiance',
               }}
             />
         </Grid>
@@ -151,9 +215,9 @@ export default function HistDataView() {
                 labels: ['0', '2', '4', '6', '8', '10', '12', '14', '16', '18', '20', '22', '24'],
                 series: [
                   {
-                    type: 'line',
-                    fill: 'solid',
-                    data: [11, 10, 14, 9, 12, 17, 14, 15, 8, 10, 12, 16, 15],
+                    type: 'area',
+                    fill: 'gradient',
+                    data: windspeedData,
                   },
                 ],
               colors: ['#A689E1'],
@@ -174,9 +238,9 @@ export default function HistDataView() {
                 labels: ['0', '2', '4', '6', '8', '10', '12', '14', '16', '18', '20', '22', '24'],
                 series: [
                   {
-                    type: 'line',
-                    fill: 'solid',
-                    data: [16, 25, 28, 19, 25, 28, 16, 25, 28, 17, 20, 24, 23],
+                    type: 'area',
+                    fill: 'gradient',
+                    data: carbonmonoData,
                   },
                 ],
               colors: ['#ADD8E6'],
@@ -187,6 +251,29 @@ export default function HistDataView() {
         </Grid>
       </Grid>
        
+      <Grid sx={{ mt: 6 }}>
+        <Grid xs={12} md={8} lg={8}>
+            <HistDataInfo
+              title="Solar Radiation"
+              subheader="Historical Data"
+              chart={{
+                type: 'solar',
+                labels: ['0', '2', '4', '6', '8', '10', '12', '14', '16', '18', '20', '22', '24'],
+                series: [
+                  {
+                    type: 'area',
+                    fill: 'gradient',
+                    data: [140, 158, 189, 153, 200, 164, 194, 175, 184, 200, 156, 149, 128],
+                  },
+                ],
+              colors: ['#F9E076'],
+              xaxisLabel: 'Hours',
+              yaxisLabel: 'Solar Irradiance',
+              }}
+            />
+        </Grid>
+      </Grid>
+
     </Container>
   );
 }
