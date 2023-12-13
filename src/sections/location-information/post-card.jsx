@@ -1,3 +1,4 @@
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import Box from '@mui/material/Box';
@@ -10,6 +11,22 @@ import Typography from '@mui/material/Typography';
 import { fDate } from 'src/utils/format-time';
 
 // ----------------------------------------------------------------------
+
+const GoogleMap = () => (
+  <div className="mapouter">
+    <div className="gmap_canvas">
+      <iframe
+        src="https://maps.google.com/maps?q=NCR&amp;t=k&amp;z=10&amp;ie=UTF8&amp;iwloc=&amp;output=embed"
+        frameBorder="0"
+        allowFullScreen
+        title="Google Map"
+        style={{ width: '100%', height: '100%' }}
+      ></iframe>
+    </div>
+  </div>
+);
+
+export { GoogleMap };
 
 export default function PostCard({ post, index }) {
   const { title, createdAt } = post;

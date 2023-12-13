@@ -46,10 +46,10 @@ export default function RainfallView() {
                 {
                   type: 'area',
                   fill: 'gradient',
-                  data: [3.4, 2.3, 2.5, 3.6, 4.5, 3.2, 3.8, 4.7, 4.9, 4.3, 3.9, 3.4, 3.1],
+                  data: [3.4, 1.2, 2.5, 3.2, 4.9, 2.5, 3.5, 4.4, 4.9, 4.3, 3.9, 3.4, 3.1],
                 }
               ],
-              colors: ['#145DA0'],
+              colors: ['#06CDF4'],
             }}
           />
         </Grid>
