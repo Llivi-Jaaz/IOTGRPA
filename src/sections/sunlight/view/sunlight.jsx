@@ -1,6 +1,8 @@
 import 'moment-timezone';
 import moment from 'moment';
+import { initializeApp } from 'firebase/app';
 import React, { useState, useEffect } from 'react';
+import { ref, onValue, getDatabase } from 'firebase/database';
 
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
@@ -11,10 +13,17 @@ import SunlightWidget from '../sunlight-widget';
 
 // ----------------------------------------------------------------------
 
-export default function SunlightView() {
+const firebaseConfig = {
+  apiKey: 'AIzaSyAyQ63_JkLt9_yPBMwtFG9rTATelf5k7bE',
+  databaseURL: 'https://iot-aws-firebase-default-rtdb.asia-southeast1.firebasedatabase.app/',
+};
 
+const app = initializeApp(firebaseConfig);
+
+export default function SunlightView() {
     const [sunrise, setSunrise] = useState('');
     const [sunset, setSunset] = useState('');
+    const [solarIrradianceData, setSolarIrradianceData] = useState([]);
   
     useEffect(() => {
       const fetchSunriseSunset = async () => {
@@ -28,7 +37,6 @@ export default function SunlightView() {
             
             const sunrisePH = sunriseGMT.clone().add(8, 'hours').format('hh:mm A');
             const sunsetPH = sunsetGMT.clone().add(8, 'hours').format('hh:mm A');
-            
   
             setSunrise(sunrisePH);
             setSunset(sunsetPH);
@@ -38,6 +46,19 @@ export default function SunlightView() {
         } catch (error) {
           console.error('Error fetching sunrise-sunset data:', error);
         }
+
+        // Fetch solar irradiance data from Firebase
+        const database = getDatabase(app);
+        const solarIrradianceRef = ref(database, '/solarirradiance');
+
+        onValue(solarIrradianceRef, (snapshot) => {
+          const data = snapshot.val();
+          if (data) {
+            // Convert the Firebase data to an array of numbers
+            const formattedData = Object.values(data);
+            setSolarIrradianceData(formattedData);
+          }
+        });
       };
   
       fetchSunriseSunset();
@@ -63,27 +84,13 @@ export default function SunlightView() {
             title="Solar Radiation"
             subheader="Today"
             chart={{
-              labels: [
-                '0',
-                '2',
-                '4',
-                '6',
-                '8',
-                '10',
-                '12',
-                '14',
-                '16',
-                '18',
-                '20',
-                '22',
-                '24',
-              ],
+              labels: Array.from({ length: 13 }, (_, i) => i * 2).map(String),
               series: [
                 {
                   type: 'area',
                   fill: 'gradient',
-                  data: [140, 158, 189, 153, 200, 164, 194, 175, 184, 200, 156, 149, 128],
-                }
+                  data: solarIrradianceData,
+                },
               ],
               colors: ['#F9E076'],
             }}

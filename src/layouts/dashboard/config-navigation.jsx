@@ -22,11 +22,11 @@ const navConfig = [
     path: '/sunlight',
     icon: icon('ic_sun'),
   },
-  {
-    title: 'Forecast',
-    path: '/forecast',
-    icon: icon('ic_forecast'),
-  },
+  // {
+  //   title: 'Forecast',
+  //   path: '/forecast',
+  //   icon: icon('ic_forecast'),
+  // },
   {
     title: 'Location Information',
     path: '/location-information',
