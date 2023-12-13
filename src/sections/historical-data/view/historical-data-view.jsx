@@ -23,6 +23,7 @@ export default function HistDataView() {
   const [rainfallData, setRainData] = useState([]);
   const [windspeedData, setWindSpeedData] = useState([]);
   const [carbonmonoData, setCarbonMonoData] = useState([]);
+  const [solarIrradianceData, setSolarIrradianceData] = useState([]);
 
   useEffect(() => {
     const temperatureRef = ref(database, '/DHT/temperature');
@@ -30,13 +31,21 @@ export default function HistDataView() {
     const rainfallRef = ref(database, '/DHT/halleffect');
     const windspeedRef = ref(database, '/DHT/windspeed');
     const cardbonmonoRef = ref(database, '/DHT/mq7');
+    const solarIrradianceRef = ref(database, '/DHT/irradiance');
 
-    const fetchDataForParameter = (paramRef, setData) => {
+    const fetchDataForParameter = (paramRef, setData, limit = 13) => {
       onValue(paramRef, (snapshot) => {
         try {
           const data = snapshot.val();
           if (data) {
-            const formattedData = Object.values(data);
+            const dataArray = Object.entries(data);
+            
+            dataArray.sort((a, b) => a[1].timestamp - b[1].timestamp);
+            
+            const limitedData = dataArray.slice(-limit);
+    
+            const formattedData = limitedData.map(([key, value]) => value);
+    
             setData(formattedData);
           }
         } catch (error) {
@@ -50,6 +59,7 @@ export default function HistDataView() {
     fetchDataForParameter(rainfallRef, setRainData);
     fetchDataForParameter(windspeedRef, setWindSpeedData);
     fetchDataForParameter(cardbonmonoRef, setCarbonMonoData);
+    fetchDataForParameter(solarIrradianceRef, setSolarIrradianceData);    
 
     const temperatureListener = onValue(
       temperatureRef,
@@ -68,6 +78,10 @@ export default function HistDataView() {
       cardbonmonoRef,
       () => fetchDataForParameter(cardbonmonoRef, setCarbonMonoData)
     );
+    const solarIrradianceListener = onValue(
+      cardbonmonoRef,
+      () => fetchDataForParameter(solarIrradianceRef, setSolarIrradianceData)
+    );
 
     return () => {
       off(temperatureListener);
@@ -75,6 +89,7 @@ export default function HistDataView() {
       off(rainListener);
       off(windspeedListener);
       off(carbonmonoListener);
+      off(solarIrradianceListener);
     };
   }, []);
 
@@ -148,7 +163,7 @@ export default function HistDataView() {
                     data: rainfallData,
                   },
                 ],
-              colors: ['#145DA0'],
+              colors: ['#06CDF4'],
               xaxisLabel: 'Hours',
               yaxisLabel: 'Precipitation',
               }}
@@ -214,7 +229,7 @@ export default function HistDataView() {
                   {
                     type: 'area',
                     fill: 'gradient',
-                    data: [140, 158, 189, 153, 200, 164, 194, 175, 184, 200, 156, 149, 128],
+                    data: solarIrradianceData,
                   },
                 ],
               colors: ['#F9E076'],
