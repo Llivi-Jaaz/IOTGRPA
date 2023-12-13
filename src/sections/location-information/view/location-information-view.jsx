@@ -4,7 +4,7 @@ import moment from 'moment';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
-import { GoogleMap } from '../post-card'; // Update with the correct relative path to post-card.jsx
+import { GoogleMap } from '../post-card'; 
 
 
 
