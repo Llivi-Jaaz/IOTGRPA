@@ -24,7 +24,7 @@ export default function AppView() {
     const [temperature, setTemperature] = useState(null);
     const [humidity, setHumidity] = useState(null);
     const [mq7, setCO] = useState(null);
-    const [halleffect, setRainfall] = useState(null);
+    const [raingauge, setRainGauge] = useState(null);
     const [solarirradiance, setSolarIrradiance] = useState(null);
     const [windspeed, setWindSpeed] = useState(null);
 
@@ -86,7 +86,7 @@ export default function AppView() {
       fetchData('dataValues/temperature', setTemperature),
       fetchData('dataValues/humidity', setHumidity),
       fetchData('dataValues/mq7', setCO),
-      fetchData('dataValues/halleffect', setRainfall),
+      fetchData('dataValues/raingauge', setRainGauge),
       fetchData('dataValues/solarirradiance', setSolarIrradiance),
       fetchData('dataValues/windspeed', setWindSpeed),
     ];
@@ -121,7 +121,7 @@ export default function AppView() {
            icon={<UilCloudShowersHeavy size={50} />}
             title="Rainfall (mm)"
             subheader="Today"
-            data={`${halleffect !== null ? halleffect : 'null'} mm`}
+            data={`${raingauge !== null ? raingauge : 'null'} mm`}
           />
         </Grid>
 
