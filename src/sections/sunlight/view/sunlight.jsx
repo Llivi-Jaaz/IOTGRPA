@@ -14,8 +14,8 @@ import SunlightWidget from '../sunlight-widget';
 // ----------------------------------------------------------------------
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyAyQ63_JkLt9_yPBMwtFG9rTATelf5k7bE',
-  databaseURL: 'https://iot-aws-firebase-default-rtdb.asia-southeast1.firebasedatabase.app/',
+  apiKey: 'AIzaSyD6O0IWDRkEPngo6pfoakPRfaXUEuh8tcI',
+  databaseURL: 'https://weathering-station-default-rtdb.asia-southeast1.firebasedatabase.app/',
 };
 
 const app = initializeApp(firebaseConfig);
@@ -48,7 +48,7 @@ export default function SunlightView() {
         }
         
         const database = getDatabase(app);
-        const solarIrradianceRef = ref(database, '/solarirradiance');
+        const solarIrradianceRef = ref(database, '/dataValues/solarirradiance');
 
         onValue(solarIrradianceRef, (snapshot) => {
           const data = snapshot.val();

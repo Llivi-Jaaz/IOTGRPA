@@ -33,24 +33,24 @@ export default function LoginView() {
 
   const handleLoginClick = async () => {
     try {
-      // Firebase configuration
       const firebaseConfig = {
-        apiKey: 'AIzaSyAyQ63_JkLt9_yPBMwtFG9rTATelf5k7bE',
-        databaseURL: 'https://iot-aws-firebase-default-rtdb.asia-southeast1.firebasedatabase.app/',
+        apiKey: 'AIzaSyD6O0IWDRkEPngo6pfoakPRfaXUEuh8tcI',
+        databaseURL: 'https://weathering-station-default-rtdb.asia-southeast1.firebasedatabase.app/',
       };
 
       const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+    
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const userId = userCredential.user.uid;
+
       const db = getDatabase();
-      const userRef = ref(db, `useraccounts/${email}`);
+      const userRef = ref(db, `userAccounts/${userId}`);
       const snapshot = await get(userRef);
 
       if (snapshot.exists()) {
         const user = snapshot.val();
         if (user.password === password) {
-          const auth = getAuth(app);
-          await signInWithEmailAndPassword(auth, email, password);
-
-          // Redirect to '/'
           router.push('/');
         } else {
           alert('Incorrect password');
@@ -60,11 +60,16 @@ export default function LoginView() {
       }
     } catch (error) {
       console.error('Error during login:', error.message);
+      showError('Invalid email or password');
     }
   };
 
   const handleSignUpClick = () => {
     router.push('/signup');
+  };
+
+  const showError = (message) => {
+    alert(message);
   };
 
   const renderForm = (

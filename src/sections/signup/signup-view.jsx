@@ -35,8 +35,8 @@ export default function SignUpView() {
 
   useEffect(() => {
     const firebaseConfig = {
-      apiKey: 'AIzaSyAyQ63_JkLt9_yPBMwtFG9rTATelf5k7bE',
-      databaseURL: 'https://iot-aws-firebase-default-rtdb.asia-southeast1.firebasedatabase.app/',
+      apiKey: 'AIzaSyD6O0IWDRkEPngo6pfoakPRfaXUEuh8tcI',
+      databaseURL: 'https://weathering-station-default-rtdb.asia-southeast1.firebasedatabase.app/',
     };
 
     const app = initializeApp(firebaseConfig);
@@ -53,38 +53,42 @@ export default function SignUpView() {
 
   const handleLoginClick = () => {
     router.push('/login');
+    console.log('Button clicked!'); // Add this console log to check if the button is clicked
   };
 
-  const handleCreateAccountClick = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log('Form submitted!', { firstName, lastName, email, password }); // Add this console log to check if the form is submitted
+
     try {
       const firebaseConfig = {
-        apiKey: 'AIzaSyAyQ63_JkLt9_yPBMwtFG9rTATelf5k7bE',
-        databaseURL: 'https://iot-aws-firebase-default-rtdb.asia-southeast1.firebasedatabase.app/',
+        apiKey: 'AIzaSyD6O0IWDRkEPngo6pfoakPRfaXUEuh8tcI',
+        databaseURL: 'https://weathering-station-default-rtdb.asia-southeast1.firebasedatabase.app/',
       };
 
       const app = initializeApp(firebaseConfig);
       const auth = getAuth(app);
 
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(auth, email.trim(), password);
       const userId = userCredential.user.uid;
-      
+
       const db = getDatabase();
-      const userRef = ref(db, `useraccounts/${userId}`);
+      const userRef = ref(db, `userAccounts/${userId}`);
       await set(userRef, {
         firstName,
         lastName,
-        email,
+        email: email.trim(),
         password,
       });
 
       router.push('/');
     } catch (error) {
-      console.error('Error during signup:', error.message);
+      console.error('Error during signup:', error.code, error.message, error.email, error.credential);
     }
   };
 
   const renderForm = (
-    <>
+    <form onSubmit={handleSubmit}>
       <Stack spacing={3}>
         <TextField
           name="firstname"
@@ -130,11 +134,13 @@ export default function SignUpView() {
         type="submit"
         variant="contained"
         color="inherit"
-        onClick={handleCreateAccountClick}
+        onClick={() => {
+          console.log('Button clicked!'); // Add this console log to check if the button is clicked
+        }}
       >
         Create Account
       </LoadingButton>
-    </>
+    </form>
   );
 
   return (
