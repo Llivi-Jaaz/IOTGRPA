@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useState, useEffect } from 'react';
 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
@@ -14,7 +14,7 @@ import { RouterLink } from 'src/routes/components';
 
 import { useResponsive } from 'src/hooks/use-responsive';
 
-import { account } from 'src/_mock/account';
+import { auth } from 'src/sections/firebase/firebaseConfig';  // Import Firebase auth
 
 import Logo from 'src/components/logo';
 import Scrollbar from 'src/components/scrollbar';
@@ -26,17 +26,27 @@ import navConfig from './config-navigation';
 
 export default function Nav({ openNav, onCloseNav }) {
   const pathname = usePathname();
+  const [user, setUser] = useState(null);
 
   const upLg = useResponsive('up', 'lg');
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((authUser) => {
+      setUser(authUser); 
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, []);
 
   useEffect(() => {
     if (openNav) {
       onCloseNav();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pathname]);
+  }, [pathname, openNav, onCloseNav]);
 
-  const renderAccount = (
+  const renderAccount = user && (
     <Box
       sx={{
         my: 3,
@@ -49,13 +59,12 @@ export default function Nav({ openNav, onCloseNav }) {
         bgcolor: (theme) => alpha(theme.palette.grey[500], 0.12),
       }}
     >
-      <Avatar src={account.photoURL} alt="photoURL" />
-
+      <Avatar src={user.photoURL} alt="photoURL" />
+  
       <Box sx={{ ml: 2 }}>
-        <Typography variant="subtitle2">{account.displayName}</Typography>
-
+        <Typography variant="subtitle2">{user.email}</Typography>
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-          {account.role}
+          {user.role}
         </Typography>
       </Box>
     </Box>
@@ -69,8 +78,6 @@ export default function Nav({ openNav, onCloseNav }) {
     </Stack>
   );
 
-
-
   const renderContent = (
     <Scrollbar
       sx={{
@@ -83,13 +90,9 @@ export default function Nav({ openNav, onCloseNav }) {
       }}
     >
       <Logo sx={{ mt: 3, ml: 4 }} />
-
       {renderAccount}
-
       {renderMenu}
-
       <Box sx={{ flexGrow: 1 }} />
-
     </Scrollbar>
   );
 
@@ -137,7 +140,6 @@ Nav.propTypes = {
 
 function NavItem({ item }) {
   const pathname = usePathname();
-
   const active = item.path === pathname;
 
   return (
