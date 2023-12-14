@@ -8,7 +8,15 @@ import Grid from '@mui/material/Unstable_Grid2';
 
 import { database } from 'src/sections/firebase/firebaseConfig';
 
+import { UilTemperaturePlus } from '@iconscout/react-unicons';
+import { UilCloudShowersHeavy } from '@iconscout/react-unicons'
+import { UilRaindropsAlt } from '@iconscout/react-unicons'
+import { UilWind } from '@iconscout/react-unicons'
+import { UilBrightness } from '@iconscout/react-unicons'
+import { UilCloudCheck } from '@iconscout/react-unicons'
+
 import AppWidgetSummary from '../app-widget-summary';
+
 
 // ----------------------------------------------------------------------
 export default function AppView() {
@@ -101,6 +109,7 @@ export default function AppView() {
       <Grid container spacing={2}>
         <Grid xs={12} sm={6} md={4}>
           <AppWidgetSummary
+            icon={<UilTemperaturePlus size={50} />}
             title="Temperature (°C)"
             subheader="Today"
             data={`${temperature !== null ? temperature : 'null'} °C`}
@@ -109,6 +118,7 @@ export default function AppView() {
 
         <Grid xs={12} sm={6} md={4}>
           <AppWidgetSummary
+           icon={<UilCloudShowersHeavy size={50} />}
             title="Rainfall (mm)"
             subheader="Today"
             data={`${halleffect !== null ? halleffect : 'null'} mm`}
@@ -117,6 +127,7 @@ export default function AppView() {
 
         <Grid xs={12} sm={6} md={4}>
           <AppWidgetSummary
+            icon={<UilRaindropsAlt size={50} />}
             title="Humidity (%)"
             subheader="Today"
             data={`${humidity !== null ? humidity : 'null'} %`}
@@ -125,6 +136,7 @@ export default function AppView() {
 
         <Grid xs={12} sm={6} md={4}>
           <AppWidgetSummary
+            icon={<UilWind size={50} />}
             title="Wind Speed (km/h)"
             subheader="Today"
             data={`${windspeed !== null ? windspeed : 'null'} km/h`}
@@ -133,6 +145,7 @@ export default function AppView() {
 
         <Grid xs={12} sm={6} md={4}>
           <AppWidgetSummary
+            icon={<UilBrightness size={50} />}
             title="Solar irradiance (W/m2)"
             subheader="Today"
             data={`${solarirradiance !== null ? solarirradiance : 'null'} W/m2`}
@@ -141,6 +154,7 @@ export default function AppView() {
 
         <Grid xs={12} sm={6} md={4}>
           <AppWidgetSummary
+            icon={<UilCloudCheck size={50} />}
             title="Carbon Monoxide (ppm)"
             subheader="Today"
             data={`${mq7 !== null ? mq7 : 'null'} ppm`}
