@@ -21,7 +21,7 @@ export default function HistDataView() {
   useEffect(() => {
     const temperatureRef = ref(database, '/dataValues/temperature');
     const humidityRef = ref(database, '/dataValues/humidity');
-    const rainfallRef = ref(database, '/dataValues/halleffect');
+    const rainfallRef = ref(database, '/dataValues/raingauge');
     const windspeedRef = ref(database, '/dataValues/windspeed');
     const cardbonmonoRef = ref(database, '/dataValues/mq7');
     const solarIrradianceRef = ref(database, '/dataValues/solarirradiance');
