@@ -26,12 +26,12 @@ export default function HistDataView() {
   const [solarIrradianceData, setSolarIrradianceData] = useState([]);
 
   useEffect(() => {
-    const temperatureRef = ref(database, '/DHT/temperature');
-    const humidityRef = ref(database, '/DHT/humidity');
-    const rainfallRef = ref(database, '/DHT/halleffect');
-    const windspeedRef = ref(database, '/DHT/windspeed');
-    const cardbonmonoRef = ref(database, '/DHT/mq7');
-    const solarIrradianceRef = ref(database, '/DHT/irradiance');
+    const temperatureRef = ref(database, '/dataValues/temperature');
+    const humidityRef = ref(database, '/dataValues/humidity');
+    const rainfallRef = ref(database, '/dataValues/halleffect');
+    const windspeedRef = ref(database, '/dataValues/windspeed');
+    const cardbonmonoRef = ref(database, '/dataValues/mq7');
+    const solarIrradianceRef = ref(database, '/dataValues/solarirradiance');
 
     const fetchDataForParameter = (paramRef, setData, limit = 13) => {
       onValue(paramRef, (snapshot) => {
@@ -79,7 +79,7 @@ export default function HistDataView() {
       () => fetchDataForParameter(cardbonmonoRef, setCarbonMonoData)
     );
     const solarIrradianceListener = onValue(
-      cardbonmonoRef,
+      solarIrradianceRef,
       () => fetchDataForParameter(solarIrradianceRef, setSolarIrradianceData)
     );
 
