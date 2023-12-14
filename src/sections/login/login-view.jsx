@@ -1,7 +1,6 @@
 import { useState } from 'react';
-import { initializeApp } from 'firebase/app';
 import { ref, get, getDatabase } from 'firebase/database';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
@@ -22,6 +21,8 @@ import { bgGradient } from 'src/theme/css';
 import Logo from 'src/components/logo';
 import Iconify from 'src/components/iconify';
 
+import { auth } from 'src/sections/firebase/firebaseConfig';
+
 // ----------------------------------------------------------------------
 
 export default function LoginView() {
@@ -33,24 +34,16 @@ export default function LoginView() {
 
   const handleLoginClick = async () => {
     try {
-      // Firebase configuration
-      const firebaseConfig = {
-        apiKey: 'AIzaSyAyQ63_JkLt9_yPBMwtFG9rTATelf5k7bE',
-        databaseURL: 'https://iot-aws-firebase-default-rtdb.asia-southeast1.firebasedatabase.app/',
-      };
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const userId = userCredential.user.uid;
 
-      const app = initializeApp(firebaseConfig);
       const db = getDatabase();
-      const userRef = ref(db, `useraccounts/${email}`);
+      const userRef = ref(db, `userAccounts/${userId}`);
       const snapshot = await get(userRef);
 
       if (snapshot.exists()) {
         const user = snapshot.val();
         if (user.password === password) {
-          const auth = getAuth(app);
-          await signInWithEmailAndPassword(auth, email, password);
-
-          // Redirect to '/'
           router.push('/');
         } else {
           alert('Incorrect password');
@@ -60,11 +53,16 @@ export default function LoginView() {
       }
     } catch (error) {
       console.error('Error during login:', error.message);
+      showError('Invalid email or password');
     }
   };
 
   const handleSignUpClick = () => {
     router.push('/signup');
+  };
+
+  const showError = (message) => {
+    alert(message);
   };
 
   const renderForm = (

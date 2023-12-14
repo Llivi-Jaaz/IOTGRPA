@@ -1,14 +1,92 @@
+import { off, onValue, ref } from 'firebase/database';
 import moment from 'moment';
+import { useCallback, useEffect, useState } from 'react';
 
 import Container from '@mui/material/Container';
-import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Unstable_Grid2';
+
+import { database } from 'src/sections/firebase/firebaseConfig';
 
 import AppWidgetSummary from '../app-widget-summary';
 
 // ----------------------------------------------------------------------
 export default function AppView() {
-  const currentDate = moment().format('dddd, MMMM DD, YYYY');
+    const currentDate = moment().format('dddd, MMMM DD, YYYY');
+    const [temperature, setTemperature] = useState(null);
+    const [humidity, setHumidity] = useState(null);
+    const [mq7, setCO] = useState(null);
+    const [halleffect, setRainfall] = useState(null);
+    const [solarirradiance, setSolarIrradiance] = useState(null);
+    const [windspeed, setWindSpeed] = useState(null);
+
+  const findLatestEntry = useCallback((dataObject) => {
+    let latestEntry = null;
+    Object.keys(dataObject).forEach((key) => {
+      const entryTimestamp = moment(key, 'MMDDYYYY_HHmmss').valueOf();
+      if (
+        (!latestEntry || entryTimestamp > latestEntry.timestamp) &&
+        dataObject[key].value !== null
+      ) {
+        latestEntry = {
+          timestamp: entryTimestamp,
+          value: dataObject[key].value,
+        };
+      }
+    });
+    return latestEntry;
+  }, []);
+
+  useEffect(() => {
+    const fetchData = (path, setStateFunction) => {
+      const dataRef = ref(database, path);
+      const fetchDataHandler = onValue(dataRef, (snapshot) => {
+        try {
+          const data = snapshot.val();
+          console.log(`Data for ${path}:`, data); // dito nagrread
+
+          if (data) {
+            const dataArray = Object.entries(data);
+
+            dataArray.sort((a, b) => a[1].timestamp - b[1].timestamp);
+            console.log('Sorted Data Array:', dataArray); // nagrread
+
+            if (dataArray.length > 0) {
+              const latestEntry = dataArray[dataArray.length - 1];
+              console.log('Latest Entry:', latestEntry); // okay
+
+              const latestTemperature = latestEntry[1];
+             console.log('Latest Temperature:', latestTemperature);
+              setStateFunction(latestTemperature);
+
+            } else {
+              console.log('Data Array is empty or has no valid entries.');
+            }
+          }
+        } catch (error) {
+          console.error(`Error fetching ${path} data:`, error);
+        }
+      });
+
+
+      return () => {
+        off(dataRef, fetchDataHandler);
+      };
+    };
+
+    const cleanupFunctions = [
+      fetchData('dataValues/temperature', setTemperature),
+      fetchData('dataValues/humidity', setHumidity),
+      fetchData('dataValues/mq7', setCO),
+      fetchData('dataValues/halleffect', setRainfall),
+      fetchData('dataValues/solarirradiance', setSolarIrradiance),
+      fetchData('dataValues/windspeed', setWindSpeed),
+    ];
+
+    return () => {
+      cleanupFunctions.forEach((cleanup) => cleanup());
+    };
+  }, []); // Empty dependency array as this effect should run only once
 
   return (
     <Container maxWidth="xl">
@@ -25,7 +103,7 @@ export default function AppView() {
           <AppWidgetSummary
             title="Temperature (°C)"
             subheader="Today"
-            data = "36.5 °C"
+            data={`${temperature !== null ? temperature : 'null'} °C`}
           />
         </Grid>
 
@@ -33,7 +111,7 @@ export default function AppView() {
           <AppWidgetSummary
             title="Rainfall (mm)"
             subheader="Today"
-            data ="5 mm"
+            data={`${halleffect !== null ? halleffect : 'null'} mm`}
           />
         </Grid>
 
@@ -41,15 +119,15 @@ export default function AppView() {
           <AppWidgetSummary
             title="Humidity (%)"
             subheader="Today"
-            data ="52.4 %"
+            data={`${humidity !== null ? humidity : 'null'} %`}
           />
         </Grid>
 
         <Grid xs={12} sm={6} md={4}>
           <AppWidgetSummary
-            title="Wind Speed & Direction (km/h)"
+            title="Wind Speed (km/h)"
             subheader="Today"
-            data ="8 km/h"
+            data={`${windspeed !== null ? windspeed : 'null'} km/h`}
           />
         </Grid>
 
@@ -57,7 +135,7 @@ export default function AppView() {
           <AppWidgetSummary
             title="Solar irradiance (W/m2)"
             subheader="Today"
-            data ="120 W/m2"
+            data={`${solarirradiance !== null ? solarirradiance : 'null'} W/m2`}
           />
         </Grid>
 
@@ -65,71 +143,9 @@ export default function AppView() {
           <AppWidgetSummary
             title="Carbon Monoxide (ppm)"
             subheader="Today"
-            data ="62 ppm"
+            data={`${mq7 !== null ? mq7 : 'null'} ppm`}
           />
         </Grid>
-{/*
-{/*
-{/*
-{/*
-
-        <Grid xs={12} md={8} lg={8}>
-          <AppWebsiteVisits
-            title="Humidity (%)"
-            subheader="Today"
-            chart={{
-              labels: [
-                '01/01/2003',
-                '02/01/2003',
-                '03/01/2003',
-                '04/01/2003',
-                '05/01/2003',
-                '06/01/2003',
-                '07/01/2003',
-                '08/01/2003',
-                '09/01/2003',
-                '10/01/2003',
-                '11/01/2003',
-              ],
-              series: [
-                {
-                  name: 'Team A',
-                  type: 'column',
-                  fill: 'solid',
-                  data: [23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30],
-                },
-                {
-                  name: 'Team B',
-                  type: 'area',
-                  fill: 'gradient',
-                  data: [44, 55, 41, 67, 22, 43, 21, 41, 56, 27, 43],
-                },
-                {
-                  name: 'Team C',
-                  type: 'line',
-                  fill: 'solid',
-                  data: [30, 25, 36, 30, 45, 35, 64, 52, 59, 36, 39],
-                },
-              ],
-            }}
-          />
-        </Grid>
-
-        <Grid xs={12} md={6} lg={4}>
-          <AppCurrentVisits
-            title="Carbon Monoxide (ppm)"
-            subheader="Today"
-            chart={{
-              series: [
-                { label: 'America', value: 4344 },
-                { label: 'Asia', value: 5435 },
-                { label: 'Europe', value: 1443 },
-                { label: 'Africa', value: 4443 },
-              ],
-            }}
-          />
-        </Grid> */}
-
       </Grid>
     </Container>
   );

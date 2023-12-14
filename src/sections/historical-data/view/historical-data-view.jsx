@@ -1,21 +1,14 @@
 import moment from 'moment';
-import { initializeApp } from 'firebase/app';
 import React, { useState, useEffect } from 'react';
-import { ref, off, onValue, getDatabase } from 'firebase/database';
+import { ref, off, onValue } from 'firebase/database';
 
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
 
+import { database } from 'src/sections/firebase/firebaseConfig';
+
 import HistDataInfo from '../historical-data-info';
-
-const firebaseConfig = {
-  apiKey: 'AIzaSyD6O0IWDRkEPngo6pfoakPRfaXUEuh8tcI',
-  databaseURL: 'https://weathering-station-default-rtdb.asia-southeast1.firebasedatabase.app/',
-};
-
-const app = initializeApp(firebaseConfig);
-const database = getDatabase(app);
 
 export default function HistDataView() {
   const [temperatureData, setTemperatureData] = useState([]);

@@ -1,94 +1,97 @@
 import 'moment-timezone';
 import moment from 'moment';
-import { initializeApp } from 'firebase/app';
 import React, { useState, useEffect } from 'react';
-import { ref, off, onValue, getDatabase } from 'firebase/database';
+import { ref, off, onValue } from 'firebase/database';
 
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
 
+import { database } from 'src/sections/firebase/firebaseConfig';
+
 import SolarData from '../sunlight-data';
 import SunlightWidget from '../sunlight-widget';
 
+// ----------------------------------------------------------------------
+
 const firebaseConfig = {
-  apiKey: 'AIzaSyAyQ63_JkLt9_yPBMwtFG9rTATelf5k7bE',
-  databaseURL: 'https://iot-aws-firebase-default-rtdb.asia-southeast1.firebasedatabase.app/',
+  apiKey: 'AIzaSyD6O0IWDRkEPngo6pfoakPRfaXUEuh8tcI',
+  databaseURL: 'https://weathering-station-default-rtdb.asia-southeast1.firebasedatabase.app/',
 };
 
 const app = initializeApp(firebaseConfig);
-const database = getDatabase(app);
 
 export default function SunlightView() {
-  const [sunrise, setSunrise] = useState('');
-  const [sunset, setSunset] = useState('');
-  const [solarIrradianceData, setSolarIrradianceData] = useState([]);
-
-  useEffect(() => {
-    const fetchSunriseSunset = async () => {
-      try {
-        const response = await fetch('https://api.sunrise-sunset.org/json?lat=14.5896&lng=120.9810');
-        const data = await response.json();
-
-        if (data.results && data.results.sunrise && data.results.sunset) {
-          const sunriseGMT = moment.utc(data.results.sunrise, 'hh:mm A');
-          const sunsetGMT = moment.utc(data.results.sunset, 'hh:mm A');
-
-          const sunrisePH = sunriseGMT.clone().add(8, 'hours').format('hh:mm A');
-          const sunsetPH = sunsetGMT.clone().add(8, 'hours').format('hh:mm A');
-
-          setSunrise(sunrisePH);
-          setSunset(sunsetPH);
-        } else {
-          console.error('Invalid sunrise-sunset data:', data);
-        }
-      } catch (error) {
-        console.error('Error fetching sunrise-sunset data:', error);
-      }
-
-      const solarIrradianceRef = ref(database, '/solarirradiance');
-
-      const fetchDataForParameter = (paramRef, setData, limit = 11) => {
-        onValue(paramRef, (snapshot) => {
-          try {
-            const data = snapshot.val();
-            if (data) {
-              const dataArray = Object.entries(data);
-
-              dataArray.sort((a, b) => a[1].timestamp - b[1].timestamp);
-
-              const limitedData = dataArray.slice(-limit);
-
-              const formattedData = limitedData.map(([key, value]) => value);
-
-              setData(formattedData);
-            }
-          } catch (error) {
-            console.error('Error fetching data:', error);
+    const [sunrise, setSunrise] = useState('');
+    const [sunset, setSunset] = useState('');
+    const [solarIrradianceData, setSolarIrradianceData] = useState([]);
+  
+    useEffect(() => {
+      const fetchSunriseSunset = async () => {
+        try {
+          const response = await fetch('https://api.sunrise-sunset.org/json?lat=14.5896&lng=120.9810');
+          const data = await response.json();
+  
+          if (data.results && data.results.sunrise && data.results.sunset) {
+            const sunriseGMT = moment.utc(data.results.sunrise, 'hh:mm A');
+            const sunsetGMT = moment.utc(data.results.sunset, 'hh:mm A');
+            
+            const sunrisePH = sunriseGMT.clone().add(8, 'hours').format('hh:mm A');
+            const sunsetPH = sunsetGMT.clone().add(8, 'hours').format('hh:mm A');
+  
+            setSunrise(sunrisePH);
+            setSunset(sunsetPH);
+          } else {
+            console.error('Invalid sunrise-sunset data:', data);
           }
-        });
-      };
+        } catch (error) {
+          console.error('Error fetching sunrise-sunset data:', error);
+        }
+        
+        const database = getDatabase(app);
+        const solarIrradianceRef = ref(database, '/dataValues/solarirradiance');
 
-      fetchDataForParameter(solarIrradianceRef, setSolarIrradianceData);
+        const fetchDataForParameter = (paramRef, setData, limit = 13) => {
+          onValue(paramRef, (snapshot) => {
+            try {
+              const data = snapshot.val();
+              if (data) {
+                const dataArray = Object.entries(data);
+                
+                dataArray.sort((a, b) => a[1].timestamp - b[1].timestamp);
+                
+                const limitedData = dataArray.slice(-limit);
+        
+                const formattedData = limitedData.map(([key, value]) => value);
+        
+                setData(formattedData);
+              }
+            } catch (error) {
+              console.error('Error fetching data:', error);
+            }
+          });
+        };
+
+        fetchDataForParameter(solarIrradianceRef, setSolarIrradianceData);    
 
       const solarIrradianceListener = onValue(
         solarIrradianceRef,
         () => fetchDataForParameter(solarIrradianceRef, setSolarIrradianceData)
       );
 
-      return () => {
-        off(solarIrradianceListener);
+        return () => {
+          off(solarIrradianceListener);
+        };
       };
-    };
+  
+      fetchSunriseSunset();
+  
+      const intervalId = setInterval(fetchSunriseSunset, 60000);
+  
+      return () => clearInterval(intervalId);
+    }, []);
 
-    fetchSunriseSunset();
-
-    const intervalId = setInterval(fetchSunriseSunset, 60000);
-
-    return () => clearInterval(intervalId);
-  }, []);
-
-const currentDate = moment().format('dddd, MMMM DD, YYYY');
+  const currentDate = moment().format('dddd, MMMM DD, YYYY');  
 
   return (
     <Container>
