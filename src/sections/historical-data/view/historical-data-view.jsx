@@ -9,8 +9,6 @@ import Typography from '@mui/material/Typography';
 
 import HistDataInfo from '../historical-data-info';
 
-// ----------------------------------------------------------------------
-
 const firebaseConfig = {
   apiKey: 'AIzaSyD6O0IWDRkEPngo6pfoakPRfaXUEuh8tcI',
   databaseURL: 'https://weathering-station-default-rtdb.asia-southeast1.firebasedatabase.app/',
@@ -25,107 +23,75 @@ export default function HistDataView() {
   const [rainfallData, setRainData] = useState([]);
   const [windspeedData, setWindSpeedData] = useState([]);
   const [carbonmonoData, setCarbonMonoData] = useState([]);
+  const [solarIrradianceData, setSolarIrradianceData] = useState([]);
 
   useEffect(() => {
-    const temperatureRef = ref(database, '/DHT/temperature');
-    const humidityRef = ref(database, '/DHT/humidity');
-    const rainfallRef = ref(database, '/DHT/halleffect');
-    const windspeedRef = ref(database, '/DHT/windspeed');
-    const cardbonmonoRef = ref(database, '/DHT/mq7');
-  
-    const fetchTemperatureData = () => {
-      onValue(temperatureRef, (snapshot) => {
+    const temperatureRef = ref(database, '/dataValues/temperature');
+    const humidityRef = ref(database, '/dataValues/humidity');
+    const rainfallRef = ref(database, '/dataValues/halleffect');
+    const windspeedRef = ref(database, '/dataValues/windspeed');
+    const cardbonmonoRef = ref(database, '/dataValues/mq7');
+    const solarIrradianceRef = ref(database, '/dataValues/solarirradiance');
+
+    const fetchDataForParameter = (paramRef, setData, limit = 13) => {
+      onValue(paramRef, (snapshot) => {
         try {
           const data = snapshot.val();
           if (data) {
-            const formattedData = Object.values(data).slice(0, 13);
-            setTemperatureData(formattedData);
+            const dataArray = Object.entries(data);
+            
+            dataArray.sort((a, b) => a[1].timestamp - b[1].timestamp);
+            
+            const limitedData = dataArray.slice(-limit);
+    
+            const formattedData = limitedData.map(([key, value]) => value);
+    
+            setData(formattedData);
           }
         } catch (error) {
-          console.error('Error fetching temperature data:', error);
-        }
-      });
-    };
-  
-    const fetchHumidityData = () => {
-      onValue(humidityRef, (snapshot) => {
-        try {
-          const data = snapshot.val();
-          if (data) {
-            const formattedData = Object.values(data).slice(0, 13);
-            setHumidityData(formattedData);
-          }
-        } catch (error) {
-          console.error('Error fetching humidity data:', error);
-        }
-      });
-    };
-  
-    const fetchRainData = () => {
-      onValue(rainfallRef, (snapshot) => {
-        try {
-          const data = snapshot.val();
-          if (data) {
-            const formattedData = Object.values(data).slice(0, 13);
-            setRainData(formattedData);
-          }
-        } catch (error) {
-          console.error('Error fetching rainfall data:', error);
+          console.error('Error fetching data:', error);
         }
       });
     };
 
-    const fetchWindSpeedData = () => {
-      onValue(windspeedRef, (snapshot) => {
-        try {
-          const data = snapshot.val();
-          if (data) {
-            const formattedData = Object.values(data).slice(0, 13);
-            setWindSpeedData(formattedData);
-          }
-        } catch (error) {
-          console.error('Error fetching rainfall data:', error);
-        }
-      });
-    };
-  
-    const fetchCarbonMonoData = () => {
-      onValue(cardbonmonoRef, (snapshot) => {
-        try {
-          const data = snapshot.val();
-          if (data) {
-            const formattedData = Object.values(data).slice(0, 13);
-            setCarbonMonoData(formattedData);
-          }
-        } catch (error) {
-          console.error('Error fetching rainfall data:', error);
-        }
-      });
-    };
+    fetchDataForParameter(temperatureRef, setTemperatureData);
+    fetchDataForParameter(humidityRef, setHumidityData);
+    fetchDataForParameter(rainfallRef, setRainData);
+    fetchDataForParameter(windspeedRef, setWindSpeedData);
+    fetchDataForParameter(cardbonmonoRef, setCarbonMonoData);
+    fetchDataForParameter(solarIrradianceRef, setSolarIrradianceData);    
 
-    // Fetch data initially
-    fetchTemperatureData();
-    fetchHumidityData();
-    fetchRainData();
-    fetchWindSpeedData();
-    fetchCarbonMonoData();
-  
-    // Set up listeners for real-time updates
-    const temperatureListener = onValue(temperatureRef, () => fetchTemperatureData());
-    const humidityListener = onValue(humidityRef, () => fetchHumidityData());
-    const rainListener = onValue(rainfallRef, () => fetchRainData());
-    const windspeedListener = onValue(windspeedRef, () => fetchWindSpeedData());
-    const carbonmonoListener = onValue(cardbonmonoRef, () => fetchCarbonMonoData());
-  
-    // Cleanup listeners on component unmount
+    const temperatureListener = onValue(
+      temperatureRef,
+      () => fetchDataForParameter(temperatureRef, setTemperatureData)
+    );
+    const humidityListener = onValue(
+      humidityRef,
+      () => fetchDataForParameter(humidityRef, setHumidityData)
+    );
+    const rainListener = onValue(rainfallRef, () => fetchDataForParameter(rainfallRef, setRainData));
+    const windspeedListener = onValue(
+      windspeedRef,
+      () => fetchDataForParameter(windspeedRef, setWindSpeedData)
+    );
+    const carbonmonoListener = onValue(
+      cardbonmonoRef,
+      () => fetchDataForParameter(cardbonmonoRef, setCarbonMonoData)
+    );
+    const solarIrradianceListener = onValue(
+      solarIrradianceRef,
+      () => fetchDataForParameter(solarIrradianceRef, setSolarIrradianceData)
+    );
+
     return () => {
       off(temperatureListener);
       off(humidityListener);
       off(rainListener);
       off(windspeedListener);
       off(carbonmonoListener);
+      off(solarIrradianceListener);
     };
-  }, []);  
+  }, []);
 
   return (
     <Container>
@@ -197,7 +163,7 @@ export default function HistDataView() {
                     data: rainfallData,
                   },
                 ],
-              colors: ['#145DA0'],
+              colors: ['#06CDF4'],
               xaxisLabel: 'Hours',
               yaxisLabel: 'Precipitation',
               }}
@@ -263,7 +229,7 @@ export default function HistDataView() {
                   {
                     type: 'area',
                     fill: 'gradient',
-                    data: [140, 158, 189, 153, 200, 164, 194, 175, 184, 200, 156, 149, 128],
+                    data: solarIrradianceData,
                   },
                 ],
               colors: ['#F9E076'],

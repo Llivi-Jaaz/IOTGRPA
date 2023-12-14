@@ -2,7 +2,7 @@ import 'moment-timezone';
 import moment from 'moment';
 import { initializeApp } from 'firebase/app';
 import React, { useState, useEffect } from 'react';
-import { ref, onValue, getDatabase } from 'firebase/database';
+import { ref, off, onValue, getDatabase } from 'firebase/database';
 
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
@@ -50,13 +50,37 @@ export default function SunlightView() {
         const database = getDatabase(app);
         const solarIrradianceRef = ref(database, '/dataValues/solarirradiance');
 
-        onValue(solarIrradianceRef, (snapshot) => {
-          const data = snapshot.val();
-          if (data) {
-            const formattedData = Object.values(data);
-            setSolarIrradianceData(formattedData);
-          }
-        });
+        const fetchDataForParameter = (paramRef, setData, limit = 13) => {
+          onValue(paramRef, (snapshot) => {
+            try {
+              const data = snapshot.val();
+              if (data) {
+                const dataArray = Object.entries(data);
+                
+                dataArray.sort((a, b) => a[1].timestamp - b[1].timestamp);
+                
+                const limitedData = dataArray.slice(-limit);
+        
+                const formattedData = limitedData.map(([key, value]) => value);
+        
+                setData(formattedData);
+              }
+            } catch (error) {
+              console.error('Error fetching data:', error);
+            }
+          });
+        };
+
+        fetchDataForParameter(solarIrradianceRef, setSolarIrradianceData);    
+
+        const solarIrradianceListener = onValue(
+          solarIrradianceRef,
+          () => fetchDataForParameter(solarIrradianceRef, setSolarIrradianceData)
+        );
+
+        return () => {
+          off(solarIrradianceListener);
+        };
       };
   
       fetchSunriseSunset();

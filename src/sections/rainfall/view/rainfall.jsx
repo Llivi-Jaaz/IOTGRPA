@@ -1,17 +1,48 @@
-import 'moment-timezone';
 import moment from 'moment';
+import { initializeApp } from 'firebase/app';
+import React, { useMemo, useState, useEffect } from 'react';
+import { ref, off, onValue, getDatabase } from 'firebase/database';
 
+import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
-import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
 
 import RainData from '../rainfall-data';
 
-// ----------------------------------------------------------------------
+const firebaseConfig = {
+  apiKey: 'AIzaSyD6O0IWDRkEPngo6pfoakPRfaXUEuh8tcI',
+  databaseURL: 'https://weathering-station-default-rtdb.asia-southeast1.firebasedatabase.app/',
+};
+
 
 export default function RainfallView() {
+  const currentDate = moment().format('dddd, MMMM DD, YYYY');
+  const [halleffect, setRainfall] = useState([]);
 
-  const currentDate = moment().format('dddd, MMMM DD, YYYY');  
+  const database = useMemo(() => {
+    const app = initializeApp(firebaseConfig);
+    return getDatabase(app);
+  }, []);
+
+  useEffect(() => {
+    const rainfallRef = ref(database, 'dataValues/halleffect');
+
+    const fetchRainfallData = onValue(rainfallRef, (snapshot) => {
+      try {
+        const data = snapshot.val();
+        if (data) {
+          const formattedData = Object.values(data);
+          setRainfall(formattedData);
+        }
+      } catch (error) {
+        console.error('Error fetching rainfall data:', error);
+      }
+    });
+
+    return () => {
+      off(rainfallRef, fetchRainfallData);
+    };
+  }, [database]);
 
   return (
     <Container>
@@ -23,36 +54,36 @@ export default function RainfallView() {
       </Typography>
 
       <Grid xs={12} md={8} lg={8} sx={{ mt: 4 }}>
-          <RainData
-            title="Rainfall"
-            subheader="Today"
-            chart={{
-              labels: [
-                '0',
-                '2',
-                '4',
-                '6',
-                '8',
-                '10',
-                '12',
-                '14',
-                '16',
-                '18',
-                '20',
-                '22',
-                '24',
-              ],
-              series: [
-                {
-                  type: 'area',
-                  fill: 'gradient',
-                  data: [3.4, 1.2, 2.5, 3.2, 4.9, 2.5, 3.5, 4.4, 4.9, 4.3, 3.9, 3.4, 3.1],
-                }
-              ],
-              colors: ['#06CDF4'],
-            }}
-          />
-        </Grid>
+        <RainData
+          title="Rainfall"
+          subheader="Today"
+          chart={{
+            labels: [
+              '0',
+              '2',
+              '4',
+              '6',
+              '8',
+              '10',
+              '12',
+              '14',
+              '16',
+              '18',
+              '20',
+              '22',
+              '24',
+            ],
+            series: [
+              {
+                type: 'area',
+                fill: 'gradient',
+                data: halleffect,
+              },
+            ],
+            colors: ['#06CDF4'],
+          }}
+        />
+      </Grid>
     </Container>
   );
 }
