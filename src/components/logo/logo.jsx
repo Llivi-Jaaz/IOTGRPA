@@ -12,7 +12,8 @@ const Logo = forwardRef(({ disabledLink = false, sx, ...other }, ref) => {
   const logo = (
     <Box
       component="img"
-      src="/src/components/logo/aws_logo.svg"
+      src="/public/favicon/apple-touch-icon.png"
+      // src="/src/components/logo/aws_logo.svg"
       sx={{ width: 30, height: 30, cursor: 'pointer', ...sx }}
     />
   );
