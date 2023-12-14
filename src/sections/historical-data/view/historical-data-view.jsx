@@ -33,7 +33,7 @@ export default function HistDataView() {
     const cardbonmonoRef = ref(database, '/dataValues/mq7');
     const solarIrradianceRef = ref(database, '/dataValues/solarirradiance');
 
-    const fetchDataForParameter = (paramRef, setData, limit = 13) => {
+    const fetchDataForParameter = (paramRef, setData, limit = 11) => {
       onValue(paramRef, (snapshot) => {
         try {
           const data = snapshot.val();
@@ -109,7 +109,7 @@ export default function HistDataView() {
             subheader="Historical Data"
             chart={{
               type: 'temperature',
-              labels: ['0', '2', '4', '6', '8', '10', '12', '14', '16', '18', '20', '22', '24'],
+    labels: ['0', '10', '20', '30', '40', '50', '60', '70', '80', '90', '100'],
               series: [
                 {
                   type: 'area',
@@ -118,7 +118,7 @@ export default function HistDataView() {
                 },
               ],
               colors: ['#189AB4'],
-              xaxisLabel: 'Hours',
+              xaxisLabel: 'Seconds',
               yaxisLabel: 'Temperature',
             }}
           />
@@ -132,7 +132,7 @@ export default function HistDataView() {
               subheader="Historical Data"
               chart={{
                 type: 'humidity',
-                labels: ['0', '2', '4', '6', '8', '10', '12', '14', '16', '18', '20', '22', '24'],
+                labels: ['0', '10', '20', '30', '40', '50', '60', '70', '80', '90', '100'],
                 series: [
                   {
                     type: 'area',
@@ -141,7 +141,7 @@ export default function HistDataView() {
                   },
                 ],
               colors: ['#3F704D'],
-              xaxisLabel: 'Hours',
+              xaxisLabel: 'Seconds',
               yaxisLabel: 'Relative Humidity',
               }}
             />
@@ -155,7 +155,7 @@ export default function HistDataView() {
               subheader="Historical Data"
               chart={{
                 type: 'rain',
-                labels: ['0', '2', '4', '6', '8', '10', '12', '14', '16', '18', '20', '22', '24'],
+                labels: ['0', '10', '20', '30', '40', '50', '60', '70', '80', '90', '100'],
                 series: [
                   {
                     type: 'area',
@@ -164,7 +164,7 @@ export default function HistDataView() {
                   },
                 ],
               colors: ['#06CDF4'],
-              xaxisLabel: 'Hours',
+              xaxisLabel: 'Seconds',
               yaxisLabel: 'Precipitation',
               }}
             />
@@ -178,7 +178,7 @@ export default function HistDataView() {
               subheader="Historical Data"
               chart={{
                 type: 'wspeed',
-                labels: ['0', '2', '4', '6', '8', '10', '12', '14', '16', '18', '20', '22', '24'],
+                labels: ['0', '10', '20', '30', '40', '50', '60', '70', '80', '90', '100'],
                 series: [
                   {
                     type: 'area',
@@ -187,7 +187,7 @@ export default function HistDataView() {
                   },
                 ],
               colors: ['#A689E1'],
-              xaxisLabel: 'Hours',
+              xaxisLabel: 'Seconds',
               yaxisLabel: 'Solar Irradiance',
               }}
             />
@@ -201,7 +201,7 @@ export default function HistDataView() {
               subheader="Historical Data"
               chart={{
                 type: 'carbon',
-                labels: ['0', '2', '4', '6', '8', '10', '12', '14', '16', '18', '20', '22', '24'],
+                labels: ['0', '10', '20', '30', '40', '50', '60', '70', '80', '90', '100'],
                 series: [
                   {
                     type: 'area',
@@ -210,7 +210,7 @@ export default function HistDataView() {
                   },
                 ],
               colors: ['#ADD8E6'],
-              xaxisLabel: 'Hours',
+              xaxisLabel: 'Seconds',
               yaxisLabel: 'Carbon Monoxide',
               }}
             />
@@ -224,7 +224,7 @@ export default function HistDataView() {
               subheader="Historical Data"
               chart={{
                 type: 'solar',
-                labels: ['0', '2', '4', '6', '8', '10', '12', '14', '16', '18', '20', '22', '24'],
+                labels: ['0', '10', '20', '30', '40', '50', '60', '70', '80', '90', '100'],
                 series: [
                   {
                     type: 'area',
@@ -233,7 +233,7 @@ export default function HistDataView() {
                   },
                 ],
               colors: ['#F9E076'],
-              xaxisLabel: 'Hours',
+              xaxisLabel: 'Seconds',
               yaxisLabel: 'Solar Irradiance',
               }}
             />
