@@ -10,13 +10,14 @@ import Typography from '@mui/material/Typography';
 import RainData from '../rainfall-data';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyAyQ63_JkLt9_yPBMwtFG9rTATelf5k7bE',
-  databaseURL: 'https://iot-aws-firebase-default-rtdb.asia-southeast1.firebasedatabase.app/',
+  apiKey: 'AIzaSyD6O0IWDRkEPngo6pfoakPRfaXUEuh8tcI',
+  databaseURL: 'https://weathering-station-default-rtdb.asia-southeast1.firebasedatabase.app/',
 };
+
 
 export default function RainfallView() {
   const currentDate = moment().format('dddd, MMMM DD, YYYY');
-  const [rainfall, setRainfall] = useState([]);
+  const [halleffect, setRainfall] = useState([]);
 
   const database = useMemo(() => {
     const app = initializeApp(firebaseConfig);
@@ -24,7 +25,7 @@ export default function RainfallView() {
   }, []);
 
   useEffect(() => {
-    const rainfallRef = ref(database, '/rainfall');
+    const rainfallRef = ref(database, 'dataValues/halleffect');
 
     const fetchRainfallData = onValue(rainfallRef, (snapshot) => {
       try {
@@ -76,7 +77,7 @@ export default function RainfallView() {
               {
                 type: 'area',
                 fill: 'gradient',
-                data: rainfall,
+                data: halleffect,
               },
             ],
             colors: ['#06CDF4'],
