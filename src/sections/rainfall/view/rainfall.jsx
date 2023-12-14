@@ -1,28 +1,18 @@
 import moment from 'moment';
-import { initializeApp } from 'firebase/app';
-import React, { useMemo, useState, useEffect } from 'react';
-import { ref, off, onValue, getDatabase } from 'firebase/database';
+import React, { useState, useEffect } from 'react';
+import { ref, off, onValue } from 'firebase/database';
 
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
+import { database } from 'src/sections/firebase/firebaseConfig';
+
 import RainData from '../rainfall-data';
-
-const firebaseConfig = {
-  apiKey: 'AIzaSyD6O0IWDRkEPngo6pfoakPRfaXUEuh8tcI',
-  databaseURL: 'https://weathering-station-default-rtdb.asia-southeast1.firebasedatabase.app/',
-};
-
 
 export default function RainfallView() {
   const currentDate = moment().format('dddd, MMMM DD, YYYY');
   const [halleffect, setRainfall] = useState([]);
-
-  const database = useMemo(() => {
-    const app = initializeApp(firebaseConfig);
-    return getDatabase(app);
-  }, []);
 
   useEffect(() => {
     const rainfallRef = ref(database, 'dataValues/halleffect');
@@ -42,7 +32,7 @@ export default function RainfallView() {
     return () => {
       off(rainfallRef, fetchRainfallData);
     };
-  }, [database]);
+  }, []);
 
   return (
     <Container>

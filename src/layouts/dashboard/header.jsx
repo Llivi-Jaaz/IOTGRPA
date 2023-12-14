@@ -18,7 +18,7 @@ import AccountPopover from './common/account-popover';
 
 // ----------------------------------------------------------------------
 
-export default function Header({ onOpenNav }) {
+export default function Header({ onOpenNav, onLogout }) {
   const theme = useTheme();
 
   const lgUp = useResponsive('up', 'lg');
@@ -34,7 +34,7 @@ export default function Header({ onOpenNav }) {
       <Box sx={{ flexGrow: 1 }} />
 
       <Stack direction="row" alignItems="center" spacing={1}>
-        <AccountPopover />
+        <AccountPopover onLogout={onLogout} />
       </Stack>
     </>
   );
@@ -71,4 +71,5 @@ export default function Header({ onOpenNav }) {
 
 Header.propTypes = {
   onOpenNav: PropTypes.func,
+  onLogout: PropTypes.func,
 };

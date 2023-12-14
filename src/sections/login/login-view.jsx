@@ -1,7 +1,6 @@
 import { useState } from 'react';
-import { initializeApp } from 'firebase/app';
 import { ref, get, getDatabase } from 'firebase/database';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
@@ -22,6 +21,8 @@ import { bgGradient } from 'src/theme/css';
 import Logo from 'src/components/logo';
 import Iconify from 'src/components/iconify';
 
+import { auth } from 'src/sections/firebase/firebaseConfig';
+
 // ----------------------------------------------------------------------
 
 export default function LoginView() {
@@ -33,14 +34,6 @@ export default function LoginView() {
 
   const handleLoginClick = async () => {
     try {
-      const firebaseConfig = {
-        apiKey: 'AIzaSyD6O0IWDRkEPngo6pfoakPRfaXUEuh8tcI',
-        databaseURL: 'https://weathering-station-default-rtdb.asia-southeast1.firebasedatabase.app/',
-      };
-
-      const app = initializeApp(firebaseConfig);
-      const auth = getAuth(app);
-    
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const userId = userCredential.user.uid;
 

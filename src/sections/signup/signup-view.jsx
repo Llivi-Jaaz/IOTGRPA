@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react';
-import { initializeApp } from 'firebase/app';
 import { ref, set, getDatabase } from 'firebase/database';
-import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword } from 'firebase/auth';
+import { onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
 
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
+import MuiAlert from '@mui/material/Alert';
 import Divider from '@mui/material/Divider';
+import Snackbar from '@mui/material/Snackbar';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
@@ -22,6 +23,8 @@ import { bgGradient } from 'src/theme/css';
 import Logo from 'src/components/logo';
 import Iconify from 'src/components/iconify';
 
+import { auth } from 'src/sections/firebase/firebaseConfig';
+
 // ----------------------------------------------------------------------
 
 export default function SignUpView() {
@@ -32,43 +35,39 @@ export default function SignUpView() {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState(null);
+  const [openSnackbar, setOpenSnackbar] = useState(false);
 
   useEffect(() => {
-    const firebaseConfig = {
-      apiKey: 'AIzaSyD6O0IWDRkEPngo6pfoakPRfaXUEuh8tcI',
-      databaseURL: 'https://weathering-station-default-rtdb.asia-southeast1.firebasedatabase.app/',
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
-        router.push('/');
+        const idTokenResult = await user.getIdTokenResult();
+
+        if (idTokenResult.claims.isNewUser) {
+          router.push('/');
+        }
       }
     });
-
+  
     return () => unsubscribe();
   }, [router]);
 
   const handleLoginClick = () => {
     router.push('/login');
-    console.log('Button clicked!'); // Add this console log to check if the button is clicked
+  };
+
+  const handleSnackbarClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpenSnackbar(false);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form submitted!', { firstName, lastName, email, password }); // Add this console log to check if the form is submitted
+    console.log('Form submitted!', { firstName, lastName, email, password });
 
     try {
-      const firebaseConfig = {
-        apiKey: 'AIzaSyD6O0IWDRkEPngo6pfoakPRfaXUEuh8tcI',
-        databaseURL: 'https://weathering-station-default-rtdb.asia-southeast1.firebasedatabase.app/',
-      };
-
-      const app = initializeApp(firebaseConfig);
-      const auth = getAuth(app);
-
       const userCredential = await createUserWithEmailAndPassword(auth, email.trim(), password);
       const userId = userCredential.user.uid;
 
@@ -81,9 +80,12 @@ export default function SignUpView() {
         password,
       });
 
+      await signInWithEmailAndPassword(auth, email.trim(), password);
       router.push('/');
-    } catch (error) {
-      console.error('Error during signup:', error.code, error.message, error.email, error.credential);
+    } catch (catchedError) {
+      console.error('Error during signup:', catchedError.code, catchedError.message, catchedError.email, catchedError.credential);
+      setError(catchedError.message);
+      setOpenSnackbar(true);
     }
   };
 
@@ -135,7 +137,7 @@ export default function SignUpView() {
         variant="contained"
         color="inherit"
         onClick={() => {
-          console.log('Button clicked!'); // Add this console log to check if the button is clicked
+          console.log('Account create button clicked!');
         }}
       >
         Create Account
@@ -182,6 +184,17 @@ export default function SignUpView() {
 
           {renderForm}
         </Card>
+
+        <Snackbar
+          open={openSnackbar}
+          autoHideDuration={6000}
+          onClose={handleSnackbarClose}
+          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        >
+          <MuiAlert elevation={6} variant="filled" onClose={handleSnackbarClose} severity="error">
+            {error}
+          </MuiAlert>
+        </Snackbar>
       </Stack>
     </Box>
   );
