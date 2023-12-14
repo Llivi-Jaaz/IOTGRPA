@@ -12,14 +12,7 @@ import { database } from 'src/sections/firebase/firebaseConfig';
 import SolarData from '../sunlight-data';
 import SunlightWidget from '../sunlight-widget';
 
-// ----------------------------------------------------------------------
-
-const firebaseConfig = {
-  apiKey: 'AIzaSyD6O0IWDRkEPngo6pfoakPRfaXUEuh8tcI',
-  databaseURL: 'https://weathering-station-default-rtdb.asia-southeast1.firebasedatabase.app/',
-};
-
-const app = initializeApp(firebaseConfig);
+// ---------------------------------------------------------------------
 
 export default function SunlightView() {
     const [sunrise, setSunrise] = useState('');
@@ -48,10 +41,9 @@ export default function SunlightView() {
           console.error('Error fetching sunrise-sunset data:', error);
         }
         
-        const database = getDatabase(app);
         const solarIrradianceRef = ref(database, '/dataValues/solarirradiance');
 
-        const fetchDataForParameter = (paramRef, setData, limit = 13) => {
+        const fetchDataForParameter = (paramRef, setData, limit = 11) => {
           onValue(paramRef, (snapshot) => {
             try {
               const data = snapshot.val();
