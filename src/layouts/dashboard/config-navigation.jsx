@@ -13,29 +13,39 @@ const navConfig = [
     icon: icon('ic_analytics'),
   },
   {
+    title: 'Temperature',
+    path: '/temperature',
+    icon: icon('ic_temperature'),
+  },
+  {
+    title: 'Humidity',
+    path: '/humidity',
+    icon: icon('ic_humidity'),
+  },
+  {
     title: 'Rainfall',
     path: '/rainfall',
     icon: icon('ic_rain'),
+  },
+  {
+    title: 'Wind Speed',
+    path: '/wind-speed',
+    icon: icon('ic_wind'),
   },
   {
     title: 'Sunlight',
     path: '/sunlight',
     icon: icon('ic_sun'),
   },
-  // {
-  //   title: 'Forecast',
-  //   path: '/forecast',
-  //   icon: icon('ic_forecast'),
-  // },
+  {
+    title: 'Carbon Monoxide',
+    path: '/carbon-mono',
+    icon: icon('ic_carbon'),
+  },
   {
     title: 'Location Information',
     path: '/location-information',
     icon: icon('ic_location'),
-  },
-  {
-    title: 'Historical Data',
-    path: '/historical-data',
-    icon: icon('ic_data'),
   },
   {
     title: 'Device Configuration',

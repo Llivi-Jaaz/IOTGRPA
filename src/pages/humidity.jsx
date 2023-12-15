@@ -1,17 +1,17 @@
 import { Helmet } from 'react-helmet-async';
 
-import { ForecastView } from 'src/sections/forecast/view';
+import { HumidityView } from 'src/sections/humidity/view';
 
 // ----------------------------------------------------------------------
 
-export default function ForecastPage() {
+export default function HumidityPage() {
   return (
     <>
       <Helmet>
-        <title> Forecast | AWS </title>
+        <title> Humidity | AWS </title>
       </Helmet>
 
-      <ForecastView />
+      <HumidityView />
     </>
   );
 }

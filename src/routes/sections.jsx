@@ -8,12 +8,14 @@ import DashboardLayout from 'src/layouts/dashboard';
 import { auth } from 'src/sections/firebase/firebaseConfig';
 
 export const IndexPage = lazy(() => import('src/pages/app'));
-export const ForecastPage = lazy(() => import('src/pages/forecast'));
+export const CarbonMonoPage = lazy(() => import('src/pages/carbon-mono'));
+export const WindSpeedPage = lazy(() => import('src/pages/wind-speed'));
 export const LocInfoPage = lazy(() => import('src/pages/location-information'));
 export const RainfallPage = lazy(() => import('src/pages/rainfall'));
 export const DeviceConfigPage = lazy(() => import('src/pages/device-configuration'));
 export const LoginPage = lazy(() => import('src/pages/login'));
-export const HistoricalDataPage = lazy(() => import('src/pages/historical-data'));
+export const HumidityPage = lazy(() => import('src/pages/humidity'));
+export const TemperaturePage = lazy(() => import('src/pages/temperature'));
 export const SunlightPage = lazy(() => import('src/pages/sunlight'));
 export const SignUpPage = lazy(() => import('src/pages/signup'));
 export const Page404 = lazy(() => import('src/pages/page-not-found'));
@@ -62,10 +64,12 @@ export default function Router() {
         { index: true, element: <IndexPage /> },
         { path: 'rainfall', element: <RainfallPage /> },
         { path: 'sunlight', element: <SunlightPage /> },
-        { path: 'forecast', element: <ForecastPage /> },
+        { path: 'temperature', element: <TemperaturePage /> },
+        { path: 'humidity', element: <HumidityPage /> },
+        { path: 'wind-speed', element: <WindSpeedPage /> },
+        { path: 'carbon-mono', element: <CarbonMonoPage /> },
         { path: 'location-information', element: <LocInfoPage /> },
         { path: 'device-configuration', element: <DeviceConfigPage /> },
-        { path: 'historical-data', element: <HistoricalDataPage /> },
       ],
     },
     {
