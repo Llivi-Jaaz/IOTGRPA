@@ -12,7 +12,7 @@ import RainData from '../rainfall-data';
 
 export default function RainfallView() {
   const currentDate = moment().format('dddd, MMMM DD, YYYY');
-  const [raingauge, setRainfall] = useState([]);
+  const [rainfallData, setRainfallData] = useState([]);
 
   useEffect(() => {
     const rainfallRef = ref(database, '/dataValues/raingauge');
@@ -21,8 +21,10 @@ export default function RainfallView() {
       try {
         const data = snapshot.val();
         if (data) {
-          const formattedData = Object.values(data);
-          setRainfall(formattedData);
+          
+          const formattedData = Object.values(data)
+            .filter((entry) => moment(entry.timestamp).isAfter(moment().subtract(24, 'hours')));
+          setRainfallData(formattedData);
         }
       } catch (error) {
         console.error('Error fetching rainfall data:', error);
@@ -49,25 +51,15 @@ export default function RainfallView() {
           subheader="Today"
           chart={{
             labels: [
-              '0',
-              '2',
-              '4',
-              '6',
-              '8',
-              '10',
-              '12',
-              '14',
-              '16',
-              '18',
-              '20',
-              '22',
-              '24',
+              '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
+              '11', '12', '13', '14', '15', '16', '17', '18', '19', '20',
+              '21', '22', '23', '24',
             ],
             series: [
               {
                 type: 'area',
                 fill: 'gradient',
-                data: raingauge,
+                data: rainfallData,
               },
             ],
             colors: ['#06CDF4'],
