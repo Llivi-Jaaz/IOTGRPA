@@ -101,7 +101,7 @@ export default function Nav({ openNav, onCloseNav }) {
       sx={{
         flexShrink: { lg: 0 },
         width: { lg: NAV.WIDTH },
-        bgcolor: '#E5F3F0',
+        bgcolor: '#EEF6EF',
       }}
     >
       {upLg ? (
