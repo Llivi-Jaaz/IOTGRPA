@@ -14,7 +14,7 @@ const Logo = forwardRef(({ disabledLink = false, sx, ...other }, ref) => {
         sx={{ width: 30, height: 30, cursor: 'pointer', ...sx }}
       />
       <Typography variant="h3" sx={{ marginLeft: 1, marginTop: 3,  color: '#1EA480'}}>
-        Weather
+        A.W.S
       </Typography>
     </Box>
   );
