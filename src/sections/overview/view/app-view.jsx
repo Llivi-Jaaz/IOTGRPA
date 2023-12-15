@@ -2,22 +2,21 @@ import moment from 'moment';
 import { off, ref, onValue } from 'firebase/database';
 import {useState, useEffect, useCallback } from 'react';
 import {
+  UilWind,
+  UilCloudCheck,
+  UilBrightness,
   UilRaindropsAlt,
   UilTemperaturePlus,
   UilCloudShowersHeavy,
-  UilWind,
-  UilBrightness,
-  UilCloudCheck,
 } from '@iconscout/react-unicons';
-import Typography from '@mui/material/Typography';
+
 import Grid from '@mui/material/Unstable_Grid2';
 import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
+
 import { database } from 'src/sections/firebase/firebaseConfig';
 
-
-
 import AppWidgetSummary from '../app-widget-summary';
-
 
 // ----------------------------------------------------------------------
 export default function AppView() {
