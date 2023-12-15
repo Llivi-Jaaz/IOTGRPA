@@ -61,6 +61,7 @@ export default function Header({ onOpenNav, onLogout }) {
         sx={{
           height: 1,
           px: { lg: 5 },
+          backgroundColor: '#E5F3F0', // Set your desired background color here
         }}
       >
         {renderContent}
