@@ -6,7 +6,7 @@ import {
   UilBrightness,
   UilCloudCheck,
   UilRaindropsAlt,
-  UilTemperaturePlus,
+  UilTemperaturePlus, 
   UilCloudShowersHeavy,
 } from '@iconscout/react-unicons';
 
@@ -17,6 +17,7 @@ import Typography from '@mui/material/Typography';
 import { database } from 'src/sections/firebase/firebaseConfig';
 
 import AppWidgetSummary from '../app-widget-summary';
+
 
 // ----------------------------------------------------------------------
 export default function AppView() {
