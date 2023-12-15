@@ -67,7 +67,6 @@ export default function Router() {
         { path: 'sunlight', element: <SunlightPage /> },
         { path: 'temperature', element: <TemperaturePage /> },
         { path: 'humidity', element: <HumidityPage /> },
-        { path: 'forecast', element: <ForecastPage /> },
         { path: 'location-information', element: <LocInfoPage /> },
         { path: 'device-configuration', element: <DeviceConfigPage /> },
         { path: 'historical-data', element: <HistoricalDataPage /> },
