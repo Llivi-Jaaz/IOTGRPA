@@ -15,7 +15,6 @@ export const LocInfoPage = lazy(() => import('src/pages/location-information'));
 export const RainfallPage = lazy(() => import('src/pages/rainfall'));
 export const DeviceConfigPage = lazy(() => import('src/pages/device-configuration'));
 export const LoginPage = lazy(() => import('src/pages/login'));
-export const HistoricalDataPage = lazy(() => import('src/pages/historical-data'));
 export const HumidityPage = lazy(() => import('src/pages/humidity'));
 export const TemperaturePage = lazy(() => import('src/pages/temperature'));
 export const SunlightPage = lazy(() => import('src/pages/sunlight'));
@@ -73,7 +72,6 @@ export default function Router() {
         { path: 'carbon-mono', element: <CarbonMonoPage /> },
         { path: 'location-information', element: <LocInfoPage /> },
         { path: 'device-configuration', element: <DeviceConfigPage /> },
-        { path: 'historical-data', element: <HistoricalDataPage /> },
       ],
     },
     {

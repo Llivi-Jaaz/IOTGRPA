@@ -1,1 +1,0 @@
-export { default as HistDataView } from './historical-data-view';
