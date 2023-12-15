@@ -56,7 +56,7 @@ export default function Nav({ openNav, onCloseNav }) {
         display: 'flex',
         borderRadius: 1.5,
         alignItems: 'center',
-        bgcolor: (theme) => alpha(theme.palette.grey[500], 0.12),
+        bgcolor: '#D1EDE5',
       }}
     >
       <Avatar src={user.photoURL} alt="photoURL" />

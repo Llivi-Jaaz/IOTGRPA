@@ -91,7 +91,7 @@ export default function AppView() {
       <Grid container spacing={4}>
         <Grid xs={12} sm={6} md={4}>
           <AppWidgetSummary
-            icon={<UilTemperaturePlus size={50} />}
+            icon={<UilTemperaturePlus size={50} sx={{ marginTop: 3 }} color= 'black' />}
             title="Temperature (°C)"
             subheader="Today"
             data={`${temperature !== null ? temperature : 'null'} °C`}
@@ -100,7 +100,7 @@ export default function AppView() {
 
         <Grid xs={12} sm={6} md={4}>
           <AppWidgetSummary
-           icon={<UilCloudShowersHeavy size={50} />}
+           icon={<UilCloudShowersHeavy size={50} color= 'black' />}
             title="Rainfall (mm)"
             subheader="Today"
             data={`${raingauge !== null ? raingauge : 'null'} mm`}
@@ -109,7 +109,7 @@ export default function AppView() {
 
         <Grid xs={12} sm={6} md={4}>
           <AppWidgetSummary
-            icon={<UilRaindropsAlt size={50} />}
+            icon={<UilRaindropsAlt size={50} color= 'black' />}
             title="Humidity (%)"
             subheader="Today"
             data={`${humidity !== null ? humidity : 'null'} %`}
@@ -118,7 +118,7 @@ export default function AppView() {
 
         <Grid xs={12} sm={6} md={4}>
           <AppWidgetSummary
-            icon={<UilWind size={50} />}
+            icon={<UilWind size={50} color= 'black' />}
             title="Wind Speed (km/h)"
             subheader="Today"
             data={`${windspeed !== null ? windspeed : 'null'} km/h`}
@@ -127,8 +127,8 @@ export default function AppView() {
 
         <Grid xs={12} sm={6} md={4}>
           <AppWidgetSummary
-            icon={<UilBrightness size={50} />}
-            title="Solar irradiance (W/m2)"
+            icon={<UilBrightness size={50} color= 'black' />}
+            title="blackrradiance (W/m2)"
             subheader="Today"
             data={`${solarirradiance !== null ? solarirradiance : 'null'} W/m2`}
           />
@@ -136,7 +136,7 @@ export default function AppView() {
 
         <Grid xs={12} sm={6} md={4}>
           <AppWidgetSummary
-            icon={<UilCloudCheck size={50} />}
+            icon={<UilCloudCheck size={50} color= 'black' />}
             title="Carbon Monoxide (ppm)"
             subheader="Today"
             data={`${mq7 !== null ? mq7 : 'null'} ppm`}
