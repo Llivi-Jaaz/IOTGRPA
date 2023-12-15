@@ -1,13 +1,6 @@
-import { off, onValue, ref } from 'firebase/database';
 import moment from 'moment';
-import { useCallback, useEffect, useState } from 'react';
-
-import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Unstable_Grid2';
-
-import { database } from 'src/sections/firebase/firebaseConfig';
-
+import { off, ref, onValue } from 'firebase/database';
+import {useState, useEffect, useCallback } from 'react';
 import {
   UilTemperaturePlus,
   UilCloudShowersHeavy,
@@ -16,6 +9,12 @@ import {
   UilBrightness,
   UilCloudCheck,
 } from '@iconscout/react-unicons';
+import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Unstable_Grid2';
+import Container from '@mui/material/Container';
+import { database } from 'src/sections/firebase/firebaseConfig';
+
+
 
 import AppWidgetSummary from '../app-widget-summary';
 
