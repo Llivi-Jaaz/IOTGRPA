@@ -20,11 +20,11 @@
     "vite:build": "vite build"
   },
   "dependencies": {
-    "@iconscout/react-unicons": "^2.0.2",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@faker-js/faker": "^8.1.0",
     "@iconify/react": "^4.1.1",
+    "@iconscout/react-unicons": "^2.0.2",
     "@mui/lab": "^5.0.0-alpha.147",
     "@mui/material": "^5.15.0",
     "apexcharts": "^3.43.0",

@@ -12,10 +12,10 @@ import RainData from '../rainfall-data';
 
 export default function RainfallView() {
   const currentDate = moment().format('dddd, MMMM DD, YYYY');
-  const [halleffect, setRainfall] = useState([]);
+  const [raingauge, setRainfall] = useState([]);
 
   useEffect(() => {
-    const rainfallRef = ref(database, 'dataValues/halleffect');
+    const rainfallRef = ref(database, '/dataValues/raingauge');
 
     const fetchRainfallData = onValue(rainfallRef, (snapshot) => {
       try {
@@ -67,7 +67,7 @@ export default function RainfallView() {
               {
                 type: 'area',
                 fill: 'gradient',
-                data: halleffect,
+                data: raingauge,
               },
             ],
             colors: ['#06CDF4'],
