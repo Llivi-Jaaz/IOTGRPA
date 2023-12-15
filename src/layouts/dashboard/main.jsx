@@ -27,6 +27,7 @@ export default function Main({ children, sx, ...other }) {
           py: `${HEADER.H_DESKTOP + SPACING}px`,
           width: `calc(100% - ${NAV.WIDTH}px)`,
         }),
+        backgroundColor: '#E5F3F0',
         ...sx,
       }}
       {...other}
