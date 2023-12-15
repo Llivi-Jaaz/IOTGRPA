@@ -1,11 +1,8 @@
 import PropTypes from 'prop-types';
-
+import React from 'react';
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-
-
-
 // ----------------------------------------------------------------------
 export default function AppWidgetSummary({ title, subheader, data, total, icon, color = 'primary', sx, ...other }) {
   return (
@@ -15,7 +12,7 @@ export default function AppWidgetSummary({ title, subheader, data, total, icon, 
       direction="row"
       sx={{
         px: 3,
-        py: 10,
+        py: 15,
         borderRadius: 4,
         position: 'relative',
         backgroundColor: 'white', // Change the color here
@@ -33,7 +30,8 @@ export default function AppWidgetSummary({ title, subheader, data, total, icon, 
         </Typography>
       </Stack>
 
-      {icon}
+      {React.cloneElement(icon, { style: { position: 'absolute', top: 110, left: 3, width: '70px', height: '70px' } })}
+
       <Stack spacing={0.1} sx={{ position: 'absolute', textAlign: 'right', left: '80px' }}>
         <Typography variant="data" sx={{ fontSize: '3rem', fontWeight: 'bold', color: 'black' }}>
             {data}
