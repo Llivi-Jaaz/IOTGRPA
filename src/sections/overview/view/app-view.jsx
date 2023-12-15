@@ -1,12 +1,5 @@
 import moment from 'moment';
-import { useEffect, useState } from 'react';
-
-import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Unstable_Grid2';
-
-import { database } from 'src/sections/firebase/firebaseConfig';
-
+import { useState, useEffect } from 'react';
 import {
   UilWind,
   UilBrightness,
@@ -15,6 +8,12 @@ import {
   UilTemperaturePlus,
   UilCloudShowersHeavy,
 } from '@iconscout/react-unicons';
+
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Unstable_Grid2';
+import Typography from '@mui/material/Typography';
+
+import { database } from 'src/sections/firebase/firebaseConfig';
 
 import AppWidgetSummary from '../app-widget-summary';
 

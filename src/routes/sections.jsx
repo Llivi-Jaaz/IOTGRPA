@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { onAuthStateChanged } from 'firebase/auth';
-import React, { lazy, Suspense, useState, useEffect } from 'react';
 import { Route, Outlet, Navigate, useRoutes } from 'react-router-dom';
+import React, { lazy, useRef, Suspense, useState, useEffect } from 'react';
 
 import DashboardLayout from 'src/layouts/dashboard';
 
@@ -28,13 +28,19 @@ PrivateRoute.propTypes = {
   authenticated: PropTypes.bool,
 };
 
-
 export default function Router() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    localStorage.getItem('isAuthenticated') === 'true'
+  );
+
+  const isAuthenticatedRef = useRef(isAuthenticated);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setIsAuthenticated(!!user);
+      const userIsAuthenticated = !!user;
+      isAuthenticatedRef.current = userIsAuthenticated;
+      setIsAuthenticated(userIsAuthenticated);
+      localStorage.setItem('isAuthenticated', String(userIsAuthenticated));
     });
 
     return () => unsubscribe();
