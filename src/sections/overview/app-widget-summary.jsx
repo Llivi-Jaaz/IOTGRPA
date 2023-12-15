@@ -5,6 +5,7 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
 
+
 // ----------------------------------------------------------------------
 export default function AppWidgetSummary({ title, subheader, data, total, icon, color = 'primary', sx, ...other }) {
   return (
@@ -23,7 +24,7 @@ export default function AppWidgetSummary({ title, subheader, data, total, icon, 
       {...other}
     >
       <Stack spacing={0.1} sx={{ position: 'absolute', top: 20, left: 20 }}>
-        <Typography variant="h6" color='#52796F'>
+        <Typography variant="h5" color='#52796F'>
           {title}
         </Typography>
 
@@ -32,12 +33,12 @@ export default function AppWidgetSummary({ title, subheader, data, total, icon, 
         </Typography>
       </Stack>
 
-      <Stack spacing={0.1} sx={{ position: 'absolute', textAlign: 'center' }}>
+      {icon}
+      <Stack spacing={0.1} sx={{ position: 'absolute', textAlign: 'right', left: '80px' }}>
         <Typography variant="data" sx={{ fontSize: '3rem', fontWeight: 'bold' }}>
             {data}
           </Typography>
       </Stack>
-
 
       {/* Additional content or components within the Card */}
     </Card>
