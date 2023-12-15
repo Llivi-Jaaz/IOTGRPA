@@ -18,7 +18,7 @@ export default function AppWidgetSummary({ title, subheader, data, total, icon, 
         py: 15,
         borderRadius: 3,
         position: 'relative',
-        backgroundColor: '#E5F3F0', // Change the color here
+        backgroundColor: '#EEF8E9', // Change the color here
         ...sx,
       }}
       {...other}
