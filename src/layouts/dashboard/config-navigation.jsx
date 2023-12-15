@@ -37,11 +37,11 @@ const navConfig = [
     path: '/historical-data',
     icon: icon('ic_data'),
   },
-  // {
-  //   title: 'Device Configuration',
-  //   path: '/device-configuration',
-  //   icon: icon('ic_devconfig'),
-  // },
+  {
+    title: 'Device Configuration',
+    path: '/device-configuration',
+    icon: icon('ic_devconfig'),
+  },
 ];
 
 export default navConfig;

@@ -28,7 +28,7 @@ export const aws_components = [
     symbolUrl: '/assets/images/symbols/solar_irradiance.png',
     name: 'Solar Irradiance',
     unit: 'W/m²',
-    status: 'inactive',
+    status: 'active',
     role: 'Hr Manager',
   },
   {
@@ -36,7 +36,7 @@ export const aws_components = [
     symbolUrl: '/assets/images/symbols/rain_gauge.png',
     name: 'Rain Gauge',
     unit: 'mm',
-    status: 'inactive',
+    status: 'active',
     role: 'Hr Manager',
   },
   {
@@ -44,7 +44,7 @@ export const aws_components = [
     symbolUrl: '/assets/images/symbols/dht22.png',
     name: 'DHT22 Temperature and Humidity Sensor',
     unit: '°, %',
-    status: 'inactive',
+    status: 'active',
     role: 'Hr Manager',
   },
   {
@@ -52,7 +52,7 @@ export const aws_components = [
     symbolUrl: '/assets/images/symbols/mq27.png',
     name: 'MQ-27 Gas Sensor',
     unit: 'ppm',
-    status: 'inactive',
+    status: 'active',
     role: 'Hr Manager',
   }
 ];
