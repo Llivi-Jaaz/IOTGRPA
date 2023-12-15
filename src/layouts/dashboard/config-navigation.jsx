@@ -52,11 +52,6 @@ const navConfig = [
     path: '/device-configuration',
     icon: icon('ic_devconfig'),
   },
-  // {
-  //   title: 'Forecast',
-  //   path: '/forecast',
-  //   icon: icon('ic_forecast'),
-  // },
 ];
 
 export default navConfig;
