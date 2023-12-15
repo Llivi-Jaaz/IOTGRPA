@@ -15,7 +15,7 @@ export default function RainfallView() {
   const [halleffect, setRainfall] = useState([]);
 
   useEffect(() => {
-    const rainfallRef = ref(database, 'dataValues/halleffect');
+    const rainfallRef = ref(database, '/dataValues/halleffect');
 
     const fetchRainfallData = onValue(rainfallRef, (snapshot) => {
       try {
