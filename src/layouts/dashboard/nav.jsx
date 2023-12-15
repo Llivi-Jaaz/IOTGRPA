@@ -90,9 +90,9 @@
         }}
       >
         <Logo sx={{ mt: 3, ml: 4 }} />
-        <Typography variant="h3" sx={{ marginLeft: 10, marginTop: 3, color: '#1EA480' }}>
+        {/* <Typography variant="h3" sx={{ marginLeft: 10, marginTop: 3, color: '#1EA480' }}>
         A.W.S
-        </Typography>
+        </Typography> */}
         {renderAccount}
         {renderMenu}
         <Box sx={{ flexGrow: 1 }} />
