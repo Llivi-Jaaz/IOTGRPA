@@ -46,6 +46,7 @@ export default function AccountPopover() {
     try {
       await auth.signOut();
       setUserData(null);
+      localStorage.removeItem('isAuthenticated'); // Clear authentication status
       router.push('/login');
     } catch (error) {
       console.error('Error during logout:', error);
