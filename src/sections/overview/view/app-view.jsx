@@ -18,7 +18,6 @@ import { database } from 'src/sections/firebase/firebaseConfig';
 
 import AppWidgetSummary from '../app-widget-summary';
 
-
 // ----------------------------------------------------------------------
 export default function AppView() {
     const currentDate = moment().format('dddd, MMMM DD, YYYY');
