@@ -10,8 +10,8 @@ import {
   UilCloudShowersHeavy,
 } from '@iconscout/react-unicons';
 
-import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
+import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
 import { database } from 'src/sections/firebase/firebaseConfig';
@@ -59,7 +59,6 @@ export default function AppView() {
         }
       });
 
-
       return () => {
         off(dataRef, fetchDataHandler);
       };
@@ -77,7 +76,7 @@ export default function AppView() {
     return () => {
       cleanupFunctions.forEach((cleanup) => cleanup());
     };
-  }, []); // Empty dependency array as this effect should run only once
+  }, []);
 
   return (
     <Container maxWidth="xl">

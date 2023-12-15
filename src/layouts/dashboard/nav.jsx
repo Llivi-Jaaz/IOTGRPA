@@ -87,6 +87,9 @@ export default function Nav({ openNav, onCloseNav }) {
           display: 'flex',
           flexDirection: 'column',
         },
+        maxHeight: '100vh',
+        width: openNav ? '100%' : NAV.WIDTH,
+        transition: 'width 0.3s ease-in-out',
       }}
     >
       <Logo sx={{ mt: 3, ml: 4 }} />
