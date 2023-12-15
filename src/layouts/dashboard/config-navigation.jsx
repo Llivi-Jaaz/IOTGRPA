@@ -13,16 +13,6 @@ const navConfig = [
     icon: icon('ic_analytics'),
   },
   {
-    title: 'Rainfall',
-    path: '/rainfall',
-    icon: icon('ic_rain'),
-  },
-  {
-    title: 'Sunlight',
-    path: '/sunlight',
-    icon: icon('ic_sun'),
-  },
-  {
     title: 'Temperature',
     path: '/temperature',
     icon: icon('ic_temperature'),
@@ -33,9 +23,19 @@ const navConfig = [
     icon: icon('ic_humidity'),
   },
   {
+    title: 'Rainfall',
+    path: '/rainfall',
+    icon: icon('ic_rain'),
+  },
+  {
     title: 'Wind Speed',
     path: '/wind-speed',
     icon: icon('ic_wind'),
+  },
+  {
+    title: 'Sunlight',
+    path: '/sunlight',
+    icon: icon('ic_sun'),
   },
   {
     title: 'Carbon Monoxide',
