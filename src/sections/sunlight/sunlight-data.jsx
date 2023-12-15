@@ -25,7 +25,7 @@ export default function SolarData({ title, subheader, chart, ...other }) {
     xaxis: {
       type: 'time',
       title: {
-        text: 'Seconds', 
+        text: 'Time', 
       },
     },
     yaxis: {

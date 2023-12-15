@@ -1,7 +1,7 @@
 import 'moment-timezone';
 import moment from 'moment';
+import { ref, onValue } from 'firebase/database';
 import React, { useState, useEffect } from 'react';
-import { ref, off, onValue } from 'firebase/database';
 
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
@@ -18,6 +18,7 @@ export default function SunlightView() {
     const [sunrise, setSunrise] = useState('');
     const [sunset, setSunset] = useState('');
     const [solarIrradianceData, setSolarIrradianceData] = useState([]);
+    const [solarIrradianceTimestamp, setSolarIrradianceTimestamp] = useState([]);
   
     useEffect(() => {
       const fetchSunriseSunset = async () => {
@@ -41,39 +42,37 @@ export default function SunlightView() {
           console.error('Error fetching sunrise-sunset data:', error);
         }
         
-        const solarIrradianceRef = ref(database, '/dataValues/solarirradiance');
-
-        const fetchDataForParameter = (paramRef, setData, limit = 11) => {
-          onValue(paramRef, (snapshot) => {
-            try {
-              const data = snapshot.val();
-              if (data) {
-                const dataArray = Object.entries(data);
-                
-                dataArray.sort((a, b) => a[1].timestamp - b[1].timestamp);
-                
-                const limitedData = dataArray.slice(-limit);
-        
-                const formattedData = limitedData.map(([key, value]) => value);
-        
-                setData(formattedData);
+          const fetchDataForParameter = (paramPath, setData, setTimestamp, limit = 12) => {
+            const paramRef = ref(database, paramPath);
+      
+            onValue(paramRef, (snapshot) => {
+              try {
+                const data = snapshot.val();
+                if (data) {
+                  const dataArray = Object.entries(data);
+      
+                  dataArray.sort((a, b) => {
+                    const timestampA = moment(a[0], 'MMDDYYYY_HHmmss').valueOf();
+                    const timestampB = moment(b[0], 'MMDDYYYY_HHmmss').valueOf();
+                    return timestampA - timestampB;
+                  });
+      
+                  const limitedData = dataArray.slice(-limit);
+      
+                  const formattedData = limitedData.map(([key, value]) => value);
+                  const timestamps = limitedData.map(([key, value]) => moment(key, 'MMDDYYYY_HHmmss').format('HH:mm:ss'));
+      
+                  setData(formattedData);
+                  setTimestamp(timestamps);
+                }
+              } catch (error) {
+                console.error(`Error fetching data for ${paramPath}:`, error);
               }
-            } catch (error) {
-              console.error('Error fetching data:', error);
-            }
-          });
-        };
+            });
+          };
 
-        fetchDataForParameter(solarIrradianceRef, setSolarIrradianceData);    
+        fetchDataForParameter('/dataValues/solarirradiance', setSolarIrradianceData, setSolarIrradianceTimestamp);
 
-      const solarIrradianceListener = onValue(
-        solarIrradianceRef,
-        () => fetchDataForParameter(solarIrradianceRef, setSolarIrradianceData)
-      );
-
-        return () => {
-          off(solarIrradianceListener);
-        };
       };
   
       fetchSunriseSunset();
@@ -99,7 +98,7 @@ export default function SunlightView() {
           title="Solar Irradiance"
           subheader="Today"
           chart={{
-    labels: ['0', '10', '20', '30', '40', '50', '60', '70', '80', '90', '100'],
+          labels: solarIrradianceTimestamp,
             series: [
               {
                 type: 'area',

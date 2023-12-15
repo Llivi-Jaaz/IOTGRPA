@@ -1,6 +1,6 @@
 import moment from 'moment';
+import { ref, onValue } from 'firebase/database';
 import React, { useState, useEffect } from 'react';
-import { ref, off, onValue } from 'firebase/database';
 
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
@@ -13,26 +13,41 @@ import RainData from '../rainfall-data';
 export default function RainfallView() {
   const currentDate = moment().format('dddd, MMMM DD, YYYY');
   const [rainfallData, setRainfallData] = useState([]);
+  const [rainfallTimestamp, setRainfallTimestamp] = useState([]);
 
   useEffect(() => {
-    const rainfallRef = ref(database, '/dataValues/raingauge');
+    const fetchDataForParameter = (paramPath, setData, setTimestamp, limit = 12) => {
+      const paramRef = ref(database, paramPath);
 
-    const fetchRainfallData = onValue(rainfallRef, (snapshot) => {
-      try {
-        const data = snapshot.val();
-        if (data) {
-          
-          const formattedData = Object.values(data)
-            .filter((entry) => moment(entry.timestamp).isAfter(moment().subtract(24, 'hours')));
-          setRainfallData(formattedData);
+      onValue(paramRef, (snapshot) => {
+        try {
+          const data = snapshot.val();
+          if (data) {
+            const dataArray = Object.entries(data);
+
+            dataArray.sort((a, b) => {
+              const timestampA = moment(a[0], 'MMDDYYYY_HHmmss').valueOf();
+              const timestampB = moment(b[0], 'MMDDYYYY_HHmmss').valueOf();
+              return timestampA - timestampB;
+            });
+
+            const limitedData = dataArray.slice(-limit);
+
+            const formattedData = limitedData.map(([key, value]) => value);
+            const timestamps = limitedData.map(([key, value]) => moment(key, 'MMDDYYYY_HHmmss').format('HH:mm:ss'));
+
+            setData(formattedData);
+            setTimestamp(timestamps);
+          }
+        } catch (error) {
+          console.error(`Error fetching data for ${paramPath}:`, error);
         }
-      } catch (error) {
-        console.error('Error fetching rainfall data:', error);
-      }
-    });
+      });
+    };
+
+    fetchDataForParameter('/dataValues/raingauge', setRainfallData, setRainfallTimestamp);
 
     return () => {
-      off(rainfallRef, fetchRainfallData);
     };
   }, []);
 
@@ -50,11 +65,7 @@ export default function RainfallView() {
           title="Rainfall"
           subheader="Today"
           chart={{
-            labels: [
-              '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
-              '11', '12', '13', '14', '15', '16', '17', '18', '19', '20',
-              '21', '22', '23', '24',
-            ],
+            labels: rainfallTimestamp,
             series: [
               {
                 type: 'area',
