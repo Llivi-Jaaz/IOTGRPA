@@ -14,11 +14,11 @@ export default function AppWidgetSummary({ title, subheader, data, total, icon, 
       spacing={4}
       direction="row"
       sx={{
-        px: 2,
-        py: 15,
-        borderRadius: 3,
+        px: 3,
+        py: 10,
+        borderRadius: 4,
         position: 'relative',
-        backgroundColor: '#E5F3F0', // Change the color here
+        backgroundColor: '#D1EDE5', // Change the color here
         ...sx,
       }}
       {...other}
@@ -28,7 +28,7 @@ export default function AppWidgetSummary({ title, subheader, data, total, icon, 
           {title}
         </Typography>
 
-        <Typography variant="subtitle1" color='#52796F'>
+        <Typography variant="subtitle1" color='#52796F'sx={{ position: 'absolute', top: 25, bottom: 20}}>
           {subheader}
         </Typography>
       </Stack>

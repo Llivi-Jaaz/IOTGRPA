@@ -32,7 +32,7 @@ export default function Nav({ openNav, onCloseNav }) {
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
-      setUser(authUser); 
+      setUser(authUser);
     });
 
     return () => {
@@ -60,7 +60,7 @@ export default function Nav({ openNav, onCloseNav }) {
       }}
     >
       <Avatar src={user.photoURL} alt="photoURL" />
-  
+
       <Box sx={{ ml: 2 }}>
         <Typography variant="subtitle2">{user.email}</Typography>
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
@@ -101,6 +101,7 @@ export default function Nav({ openNav, onCloseNav }) {
       sx={{
         flexShrink: { lg: 0 },
         width: { lg: NAV.WIDTH },
+        bgcolor: '#EEF6EF',
       }}
     >
       {upLg ? (

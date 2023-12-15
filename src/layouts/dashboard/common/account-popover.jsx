@@ -42,8 +42,15 @@ export default function AccountPopover() {
     setOpen(null);
   };
 
-  const handleLogout = () => {
-    router.push('/login');
+  const handleLogout = async () => {
+    try {
+      await auth.signOut();
+      setUserData(null);
+      localStorage.removeItem('isAuthenticated'); // Clear authentication status
+      router.push('/login');
+    } catch (error) {
+      console.error('Error during logout:', error);
+    }
   };
 
   return (
