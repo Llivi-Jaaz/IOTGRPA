@@ -11,7 +11,7 @@ export default function AppWidgetSummary({ title, subheader, data, total, icon, 
       spacing={4}
       direction="row"
       sx={{
-        px: 5,
+        px: 3,
         py: 15,
         borderRadius: 4,
         position: 'relative',
