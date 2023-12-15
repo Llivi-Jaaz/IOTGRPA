@@ -1,21 +1,20 @@
-import { off, onValue, ref } from 'firebase/database';
 import moment from 'moment';
-import { useCallback, useEffect, useState } from 'react';
-
-import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Unstable_Grid2';
-
-import { database } from 'src/sections/firebase/firebaseConfig';
-
+import { useState, useEffect } from 'react';
+import { off, ref, onValue } from 'firebase/database';
 import {
-  UilTemperaturePlus,
-  UilCloudShowersHeavy,
-  UilRaindropsAlt,
   UilWind,
   UilBrightness,
   UilCloudCheck,
+  UilRaindropsAlt,
+  UilTemperaturePlus,
+  UilCloudShowersHeavy,
 } from '@iconscout/react-unicons';
+
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Unstable_Grid2';
+import Typography from '@mui/material/Typography';
+
+import { database } from 'src/sections/firebase/firebaseConfig';
 
 import AppWidgetSummary from '../app-widget-summary';
 
@@ -29,23 +28,6 @@ export default function AppView() {
     const [raingauge, setRainGauge] = useState(null);
     const [solarirradiance, setSolarIrradiance] = useState(null);
     const [windspeed, setWindSpeed] = useState(null);
-
-  const findLatestEntry = useCallback((dataObject) => {
-    let latestEntry = null;
-    Object.keys(dataObject).forEach((key) => {
-      const entryTimestamp = moment(key, 'MMDDYYYY_HHmmss').valueOf();
-      if (
-        (!latestEntry || entryTimestamp > latestEntry.timestamp) &&
-        dataObject[key].value !== null
-      ) {
-        latestEntry = {
-          timestamp: entryTimestamp,
-          value: dataObject[key].value,
-        };
-      }
-    });
-    return latestEntry;
-  }, []);
 
   useEffect(() => {
     const fetchData = (path, setStateFunction) => {
