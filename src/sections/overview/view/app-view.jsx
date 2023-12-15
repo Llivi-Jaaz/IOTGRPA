@@ -57,7 +57,6 @@ export default function AppView() {
         }
       });
 
-
       return () => {
         off(dataRef, fetchDataHandler);
       };
@@ -75,7 +74,7 @@ export default function AppView() {
     return () => {
       cleanupFunctions.forEach((cleanup) => cleanup());
     };
-  }, []); // Empty dependency array as this effect should run only once
+  }, []);
 
   return (
     <Container maxWidth="xl">
