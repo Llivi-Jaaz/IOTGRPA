@@ -9,6 +9,8 @@ import { auth } from 'src/sections/firebase/firebaseConfig';
 
 export const IndexPage = lazy(() => import('src/pages/app'));
 export const ForecastPage = lazy(() => import('src/pages/forecast'));
+export const CarbonMonoPage = lazy(() => import('src/pages/carbon-mono'));
+export const WindSpeedPage = lazy(() => import('src/pages/wind-speed'));
 export const LocInfoPage = lazy(() => import('src/pages/location-information'));
 export const RainfallPage = lazy(() => import('src/pages/rainfall'));
 export const DeviceConfigPage = lazy(() => import('src/pages/device-configuration'));
@@ -63,6 +65,8 @@ export default function Router() {
         { path: 'rainfall', element: <RainfallPage /> },
         { path: 'sunlight', element: <SunlightPage /> },
         { path: 'forecast', element: <ForecastPage /> },
+        { path: 'wind-speed', element: <WindSpeedPage /> },
+        { path: 'carbon-mono', element: <CarbonMonoPage /> },
         { path: 'location-information', element: <LocInfoPage /> },
         { path: 'device-configuration', element: <DeviceConfigPage /> },
         { path: 'historical-data', element: <HistoricalDataPage /> },

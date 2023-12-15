@@ -28,6 +28,16 @@ const navConfig = [
   //   icon: icon('ic_forecast'),
   // },
   {
+    title: 'Wind Speed',
+    path: '/wind-speed',
+    icon: icon('ic_wind'),
+  },
+  {
+    title: 'Carbon Monoxide',
+    path: '/carbon-mono',
+    icon: icon('ic_carbon'),
+  },
+  {
     title: 'Location Information',
     path: '/location-information',
     icon: icon('ic_location'),

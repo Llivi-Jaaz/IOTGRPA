@@ -1,0 +1,1 @@
+export { default as WindSpeedView } from './wind-speed-view';
