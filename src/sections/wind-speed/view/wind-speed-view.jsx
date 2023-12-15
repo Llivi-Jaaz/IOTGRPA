@@ -73,7 +73,7 @@ export default function WindSpeedView() {
                 data: windSpeedData,
               },
             ],
-            colors: ['#06CDF4'],
+            colors: ['#d896ff'],
           }}
         />
       </Grid>

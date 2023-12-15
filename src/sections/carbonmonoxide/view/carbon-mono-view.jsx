@@ -73,7 +73,7 @@ export default function CarbonMonoView() {
                 data: carbonmonoData,
               },
             ],
-            colors: ['#06CDF4'],
+            colors: ['#6699CC'],
           }}
         />
       </Grid>
