@@ -42,8 +42,14 @@ export default function AccountPopover() {
     setOpen(null);
   };
 
-  const handleLogout = () => {
-    router.push('/login');
+  const handleLogout = async () => {
+    try {
+      await auth.signOut();
+      setUserData(null);
+      router.push('/login');
+    } catch (error) {
+      console.error('Error during logout:', error);
+    }
   };
 
   return (
