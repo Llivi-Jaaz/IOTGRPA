@@ -81,11 +81,11 @@ export default function AppView() {
 
   return (
     <Container maxWidth="xl">
-      <Typography variant="h3" sx={{ mb: 0 }}>
+      <Typography variant="h2" sx={{ mb: 0 }}>
         Dashboard
       </Typography>
 
-      <Typography variant="subtitle2" sx={{ mt: 0, mb: 3 }}>
+      <Typography variant="subtitle2" sx={{ mt: 0, mb: 4 }}>
         Today is {currentDate}
       </Typography>
 
