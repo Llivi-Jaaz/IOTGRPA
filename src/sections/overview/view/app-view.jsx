@@ -2,9 +2,9 @@ import moment from 'moment';
 import { off, ref, onValue } from 'firebase/database';
 import {useState, useEffect, useCallback } from 'react';
 import {
+  UilRaindropsAlt,
   UilTemperaturePlus,
   UilCloudShowersHeavy,
-  UilRaindropsAlt,
   UilWind,
   UilBrightness,
   UilCloudCheck,
