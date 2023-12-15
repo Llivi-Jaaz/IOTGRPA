@@ -8,12 +8,14 @@ import Grid from '@mui/material/Unstable_Grid2';
 
 import { database } from 'src/sections/firebase/firebaseConfig';
 
-import { UilTemperaturePlus } from '@iconscout/react-unicons';
-import { UilCloudShowersHeavy } from '@iconscout/react-unicons'
-import { UilRaindropsAlt } from '@iconscout/react-unicons'
-import { UilWind } from '@iconscout/react-unicons'
-import { UilBrightness } from '@iconscout/react-unicons'
-import { UilCloudCheck } from '@iconscout/react-unicons'
+import {
+  UilTemperaturePlus,
+  UilCloudShowersHeavy,
+  UilRaindropsAlt,
+  UilWind,
+  UilBrightness,
+  UilCloudCheck,
+} from '@iconscout/react-unicons';
 
 import AppWidgetSummary from '../app-widget-summary';
 

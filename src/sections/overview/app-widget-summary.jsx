@@ -24,7 +24,7 @@ export default function AppWidgetSummary({ title, subheader, data, total, icon, 
       {...other}
     >
       <Stack spacing={0.1} sx={{ position: 'absolute', top: 20, left: 20 }}>
-        <Typography variant="h6" color='#52796F'>
+        <Typography variant="h5" color='#52796F'>
           {title}
         </Typography>
 
