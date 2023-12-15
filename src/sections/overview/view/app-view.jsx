@@ -1,12 +1,6 @@
 import moment from 'moment';
-import { useEffect, useState } from 'react';
-
-import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Unstable_Grid2';
-
-import { database } from 'src/sections/firebase/firebaseConfig';
-
+import { useState, useEffect } from 'react';
+import { ref, off, onValue } from 'firebase/database';
 import {
   UilWind,
   UilBrightness,
