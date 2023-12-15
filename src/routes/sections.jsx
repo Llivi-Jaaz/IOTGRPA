@@ -14,6 +14,8 @@ export const RainfallPage = lazy(() => import('src/pages/rainfall'));
 export const DeviceConfigPage = lazy(() => import('src/pages/device-configuration'));
 export const LoginPage = lazy(() => import('src/pages/login'));
 export const HistoricalDataPage = lazy(() => import('src/pages/historical-data'));
+export const HumidityPage = lazy(() => import('src/pages/humidity'));
+export const TemperaturePage = lazy(() => import('src/pages/temperature'));
 export const SunlightPage = lazy(() => import('src/pages/sunlight'));
 export const SignUpPage = lazy(() => import('src/pages/signup'));
 export const Page404 = lazy(() => import('src/pages/page-not-found'));
@@ -62,6 +64,8 @@ export default function Router() {
         { index: true, element: <IndexPage /> },
         { path: 'rainfall', element: <RainfallPage /> },
         { path: 'sunlight', element: <SunlightPage /> },
+        { path: 'temperature', element: <TemperaturePage /> },
+        { path: 'humidity', element: <HumidityPage /> },
         { path: 'forecast', element: <ForecastPage /> },
         { path: 'location-information', element: <LocInfoPage /> },
         { path: 'device-configuration', element: <DeviceConfigPage /> },
