@@ -1,25 +1,34 @@
+import { off, onValue, ref } from 'firebase/database';
 import moment from 'moment';
-import { ref, off, onValue } from 'firebase/database';
-import React, { useState, useEffect, useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import Container from '@mui/material/Container';
-import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Unstable_Grid2';
 
 import { database } from 'src/sections/firebase/firebaseConfig';
 
+import {
+  UilTemperaturePlus,
+  UilCloudShowersHeavy,
+  UilRaindropsAlt,
+  UilWind,
+  UilBrightness,
+  UilCloudCheck,
+} from '@iconscout/react-unicons';
+
 import AppWidgetSummary from '../app-widget-summary';
 
-// ----------------------------------------------------------------------
 
+// ----------------------------------------------------------------------
 export default function AppView() {
-  const currentDate = moment().format('dddd, MMMM DD, YYYY');
-  const [temperature, setTemperature] = useState('');
-  const [humidity, setHumidity] = useState('');
-  const [mq7, setCO] = useState('');
-  const [halleffect, setRainfall] = useState('');
-  const [solarirradiance, setSolarIrradiance] = useState('');
-  const [windspeed, setWindSpeed] = useState('');
+    const currentDate = moment().format('dddd, MMMM DD, YYYY');
+    const [temperature, setTemperature] = useState(null);
+    const [humidity, setHumidity] = useState(null);
+    const [mq7, setCO] = useState(null);
+    const [raingauge, setRainGauge] = useState(null);
+    const [solarirradiance, setSolarIrradiance] = useState(null);
+    const [windspeed, setWindSpeed] = useState(null);
 
   const findLatestEntry = useCallback((dataObject) => {
     let latestEntry = null;
@@ -44,22 +53,31 @@ export default function AppView() {
       const fetchDataHandler = onValue(dataRef, (snapshot) => {
         try {
           const data = snapshot.val();
-          console.log(`Data for ${path}:`, data);
+          console.log(`Data for ${path}:`, data); // dito nagrread
 
           if (data) {
-            const latestEntry = findLatestEntry(data);
-            if (latestEntry !== null && latestEntry.value !== undefined) {
-              setStateFunction(latestEntry.value);
+            const dataArray = Object.entries(data);
+
+            dataArray.sort((a, b) => a[1].timestamp - b[1].timestamp);
+            console.log('Sorted Data Array:', dataArray); // nagrread
+
+            if (dataArray.length > 0) {
+              const latestEntry = dataArray[dataArray.length - 1];
+              console.log('Latest Entry:', latestEntry); // okay
+
+              const latestTemperature = latestEntry[1];
+             console.log('Latest Temperature:', latestTemperature);
+              setStateFunction(latestTemperature);
+
             } else {
-              setStateFunction(null);
+              console.log('Data Array is empty or has no valid entries.');
             }
-          } else {
-            setStateFunction(null);
           }
         } catch (error) {
           console.error(`Error fetching ${path} data:`, error);
         }
       });
+
 
       return () => {
         off(dataRef, fetchDataHandler);
@@ -70,7 +88,7 @@ export default function AppView() {
       fetchData('dataValues/temperature', setTemperature),
       fetchData('dataValues/humidity', setHumidity),
       fetchData('dataValues/mq7', setCO),
-      fetchData('dataValues/halleffect', setRainfall),
+      fetchData('dataValues/raingauge', setRainGauge),
       fetchData('dataValues/solarirradiance', setSolarIrradiance),
       fetchData('dataValues/windspeed', setWindSpeed),
     ];
@@ -78,7 +96,7 @@ export default function AppView() {
     return () => {
       cleanupFunctions.forEach((cleanup) => cleanup());
     };
-  }, [findLatestEntry]);
+  }, []); // Empty dependency array as this effect should run only once
 
   return (
     <Container maxWidth="xl">
@@ -93,6 +111,7 @@ export default function AppView() {
       <Grid container spacing={2}>
         <Grid xs={12} sm={6} md={4}>
           <AppWidgetSummary
+            icon={<UilTemperaturePlus size={50} />}
             title="Temperature (°C)"
             subheader="Today"
             data={`${temperature !== null ? temperature : 'null'} °C`}
@@ -101,14 +120,16 @@ export default function AppView() {
 
         <Grid xs={12} sm={6} md={4}>
           <AppWidgetSummary
+           icon={<UilCloudShowersHeavy size={50} />}
             title="Rainfall (mm)"
             subheader="Today"
-            data={`${halleffect !== null ? halleffect : 'null'} mm`}
+            data={`${raingauge !== null ? raingauge : 'null'} mm`}
           />
         </Grid>
 
         <Grid xs={12} sm={6} md={4}>
           <AppWidgetSummary
+            icon={<UilRaindropsAlt size={50} />}
             title="Humidity (%)"
             subheader="Today"
             data={`${humidity !== null ? humidity : 'null'} %`}
@@ -117,7 +138,8 @@ export default function AppView() {
 
         <Grid xs={12} sm={6} md={4}>
           <AppWidgetSummary
-            title="Wind Speed & Direction (km/h)"
+            icon={<UilWind size={50} />}
+            title="Wind Speed (km/h)"
             subheader="Today"
             data={`${windspeed !== null ? windspeed : 'null'} km/h`}
           />
@@ -125,6 +147,7 @@ export default function AppView() {
 
         <Grid xs={12} sm={6} md={4}>
           <AppWidgetSummary
+            icon={<UilBrightness size={50} />}
             title="Solar irradiance (W/m2)"
             subheader="Today"
             data={`${solarirradiance !== null ? solarirradiance : 'null'} W/m2`}
@@ -133,6 +156,7 @@ export default function AppView() {
 
         <Grid xs={12} sm={6} md={4}>
           <AppWidgetSummary
+            icon={<UilCloudCheck size={50} />}
             title="Carbon Monoxide (ppm)"
             subheader="Today"
             data={`${mq7 !== null ? mq7 : 'null'} ppm`}

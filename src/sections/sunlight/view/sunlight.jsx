@@ -12,7 +12,7 @@ import { database } from 'src/sections/firebase/firebaseConfig';
 import SolarData from '../sunlight-data';
 import SunlightWidget from '../sunlight-widget';
 
-// ----------------------------------------------------------------------
+// ---------------------------------------------------------------------
 
 export default function SunlightView() {
     const [sunrise, setSunrise] = useState('');
@@ -43,7 +43,7 @@ export default function SunlightView() {
         
         const solarIrradianceRef = ref(database, '/dataValues/solarirradiance');
 
-        const fetchDataForParameter = (paramRef, setData, limit = 13) => {
+        const fetchDataForParameter = (paramRef, setData, limit = 11) => {
           onValue(paramRef, (snapshot) => {
             try {
               const data = snapshot.val();
@@ -66,10 +66,10 @@ export default function SunlightView() {
 
         fetchDataForParameter(solarIrradianceRef, setSolarIrradianceData);    
 
-        const solarIrradianceListener = onValue(
-          solarIrradianceRef,
-          () => fetchDataForParameter(solarIrradianceRef, setSolarIrradianceData)
-        );
+      const solarIrradianceListener = onValue(
+        solarIrradianceRef,
+        () => fetchDataForParameter(solarIrradianceRef, setSolarIrradianceData)
+      );
 
         return () => {
           off(solarIrradianceListener);
@@ -95,24 +95,24 @@ export default function SunlightView() {
       </Typography>
 
       <Grid xs={12} md={8} lg={8} sx={{ mt: 4 }}>
-          <SolarData
-            title="Solar Irradiance"
-            subheader="Today"
-            chart={{
-            labels: ['0', '2', '4', '6', '8', '10', '12', '14', '16', '18', '20', '22', '24'],
-              series: [
-                {
-                  type: 'area',
-                  fill: 'gradient',
-                  data: solarIrradianceData,
-                },
-              ],
-              colors: ['#F9E076'],
-            }}
-          />
-        </Grid>
+        <SolarData
+          title="Solar Irradiance"
+          subheader="Today"
+          chart={{
+    labels: ['0', '10', '20', '30', '40', '50', '60', '70', '80', '90', '100'],
+            series: [
+              {
+                type: 'area',
+                fill: 'gradient',
+                data: solarIrradianceData,
+              },
+            ],
+            colors: ['#F9E076'],
+          }}
+        />
+      </Grid>
 
-        <Grid container spacing={3} sx={{ mt: 2 }}>
+      <Grid container spacing={3} sx={{ mt: 2 }}>
         <Grid item xs={12} sm={6} md={6}>
           <SunlightWidget
             title="Sunrise"
