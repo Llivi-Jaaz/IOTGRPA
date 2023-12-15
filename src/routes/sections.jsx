@@ -8,7 +8,6 @@ import DashboardLayout from 'src/layouts/dashboard';
 import { auth } from 'src/sections/firebase/firebaseConfig';
 
 export const IndexPage = lazy(() => import('src/pages/app'));
-export const ForecastPage = lazy(() => import('src/pages/forecast'));
 export const LocInfoPage = lazy(() => import('src/pages/location-information'));
 export const RainfallPage = lazy(() => import('src/pages/rainfall'));
 export const DeviceConfigPage = lazy(() => import('src/pages/device-configuration'));
@@ -66,7 +65,6 @@ export default function Router() {
         { path: 'sunlight', element: <SunlightPage /> },
         { path: 'temperature', element: <TemperaturePage /> },
         { path: 'humidity', element: <HumidityPage /> },
-        { path: 'forecast', element: <ForecastPage /> },
         { path: 'location-information', element: <LocInfoPage /> },
         { path: 'device-configuration', element: <DeviceConfigPage /> },
         { path: 'historical-data', element: <HistoricalDataPage /> },
