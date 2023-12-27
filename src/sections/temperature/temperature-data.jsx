@@ -39,7 +39,7 @@ export default function TemperatureData({ title, subheader, chart, ...other }) {
       y: {
         formatter: (value) => {
           if (typeof value !== 'undefined') {
-            return `${value.toFixed(0)} mm`;
+            return `${value.toFixed(0)} &deg;C`;
           }
           return value;
         },

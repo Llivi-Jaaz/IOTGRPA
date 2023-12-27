@@ -1,14 +1,6 @@
 import moment from 'moment';
 import { useState, useEffect } from 'react';
 import { ref, off, onValue } from 'firebase/database';
-import {
-  UilWind,
-  UilBrightness,
-  UilCloudCheck,
-  UilRaindropsAlt,
-  UilTemperaturePlus,
-  UilCloudShowersHeavy,
-} from '@iconscout/react-unicons';
 
 import Grid from '@mui/material/Unstable_Grid2';
 import Container from '@mui/material/Container';
