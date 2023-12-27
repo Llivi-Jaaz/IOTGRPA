@@ -72,7 +72,7 @@ export default function AppView() {
 
   return (
     <Container maxWidth="xl">
-      <Typography variant="h2" sx={{ mb: 0 }}>
+      <Typography variant="h3" sx={{ mb: 0 }}>
         Dashboard
       </Typography>
 
